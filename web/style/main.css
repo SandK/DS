@@ -1,0 +1,14 @@
+.title {
+	border-radius: 10px;
+	background-image: linear-gradient(#00FF00, #49AB47);
+	text-align: center;
+	width: 100%;
+	height:	50px;
+}
+
+.title-font {
+	color: white;
+	font-family: 微软雅黑;
+	font-weight: bold;
+	font-size: 36px;
+}
