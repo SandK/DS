@@ -5,15 +5,20 @@ var User = require('../models/User');
 module.exports = function (app) {
 
 	// 登录
-	app.get('/signin', function (req, res) {
-		res.send("hello");
-	})
-
 	app.post('/login', passport.authenticate('local'), function (req, res) {
 		if (req.user) {
 			res.redirect('#/user');
 		}
 	})
+
+	app.get('/login', function (req, res) {
+		if (req.user) {
+			res.redirect(req.user);
+		} else {
+			res.redirect('#/user');
+		}
+	})
+
 
 	// 注册
 	app.post('/register', function (req, res) {
