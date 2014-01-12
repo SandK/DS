@@ -8,9 +8,6 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./server/models/User.js');
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 var app = express();
 
@@ -36,6 +33,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 //var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
 var mongoUri = 'mongodb://sank:123@widmore.mongohq.com:10010/ds';
 mongoose.connect(mongoUri, function (err, res) {
@@ -45,36 +46,6 @@ mongoose.connect(mongoUri, function (err, res) {
     console.log ('Succeeded connected to: ' + mongoUri);
   }
 });
-
-// This is the schema.  Note the types, validation and trim
-// statements.  They enforce useful constraints on the data.
-var userSchema = new mongoose.Schema({
-  name: {
-    first: String,
-    last: { type: String, trim: true }
-  },
-  age: { type: Number, min: 0}
-});
-
-// Compiles the schema into a model, opening (or creating, if
-// nonexistent) the 'PowerUsers' collection in the MongoDB database
-var PUser = mongoose.model('PowerUsers', userSchema);
-
-// Clear out old data
-PUser.remove({}, function(err) {
-  if (err) {
-    console.log ('error deleting old data.');
-  }
-});
-
-// Creating one user.
-var johndoe = new PUser ({
-  name: { first: 'John', last: '  Doe   ' },
-  age: 25
-});
-
-// Saving it to the database.  
-johndoe.save(function (err) {if (err) console.log ('Error on save!')});
 
 var api = require('./server/routes/api')(app);
 
