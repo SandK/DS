@@ -1,20 +1,37 @@
 var rap = angular.module('DS-App', ['ngRoute']);
 
 rap.config(function ($routeProvider) {
-  $routeProvider.when('/',
-    {
+  $routeProvider
+  	// 欢迎页面
+	.when('/',
+	{
       templateUrl: 'partials/welcome.html',
       controller: 'WelcomeController'
-    }).
+    })
 
-    otherwise( { redirectTo: '/'})
+	// 注册页面
+	.when('/register',
+	{
+      templateUrl: 'partials/register.html',
+      controller: 'RegisterController'
+    })
+
+
+    .otherwise( { redirectTo: '/'})
 
 });
 
+// 首页Controller
 rap.controller('NavController', function ($scope,$http) {
   $scope.title = "许愿树App";
 });
 
+// 欢迎页面Controller
 rap.controller('WelcomeController', function ($scope,$http) {
   $scope.appName = "许愿树";
+});
+
+// 注册页面Controller
+rap.controller('RegisterController', function ($scope,$http) {
+
 });
