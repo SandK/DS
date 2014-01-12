@@ -24,11 +24,13 @@ rap.config(function ($routeProvider) {
 // 首页Controller
 rap.controller('NavController', function ($scope,$http) {
   $scope.title = "许愿树App";
+  $http.get('http://localhost:3000/login').success(function(data) { $scope.user = data;});
 });
 
 // 欢迎页面Controller
 rap.controller('WelcomeController', function ($scope,$http) {
   $scope.appName = "许愿树";
+  $http.get('http://localhost:3000/login').success(function(data) { $scope.user = data;});
 });
 
 // 注册页面Controller
