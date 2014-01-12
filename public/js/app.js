@@ -16,6 +16,13 @@ rap.config(function ($routeProvider) {
       controller: 'RegisterController'
     })
 
+    // 用户页面
+	.when('/user',
+	{
+      templateUrl: 'partials/user.html',
+      controller: 'UserController'
+    })
+
 
     .otherwise( { redirectTo: '/'})
 
@@ -30,6 +37,11 @@ rap.controller('NavController', function ($scope,$http) {
 // 欢迎页面Controller
 rap.controller('WelcomeController', function ($scope,$http) {
   $scope.appName = "许愿树";
+  $http.get('http://localhost:3000/login').success(function(data) { $scope.user = data;});
+});
+
+// 欢迎页面Controller
+rap.controller('UserController', function ($scope,$http) {
   $http.get('http://localhost:3000/login').success(function(data) { $scope.user = data;});
 });
 

@@ -7,7 +7,7 @@ module.exports = function (app) {
 	// 登录
 	app.post('/login', passport.authenticate('local'), function (req, res) {
 		if (req.user) {
-			res.redirect('/');
+			res.redirect('#/user');
 		}
 	})
 
