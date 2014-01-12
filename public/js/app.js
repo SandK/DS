@@ -38,18 +38,18 @@ rap.config(function ($routeProvider) {
 // 首页Controller
 rap.controller('NavController', function ($scope,$http) {
   $scope.title = "许愿树App";
-  $http.get('http://localhost:3000/login').success(function(data) { $scope.user = data;});
+  $http.get('http://localhost:3000/signin').success(function(data) { $scope.user = data;});
 });
 
 // 欢迎页面Controller
 rap.controller('WelcomeController', function ($scope,$http) {
   $scope.appName = "许愿树";
-  $http.get('http://localhost:3000/login').success(function(data) { $scope.user = data;});
+  $http.get('http://localhost:3000/signin').success(function(data) { $scope.user = data;});
 });
 
-// 欢迎页面Controller
+// 用户页面Controller
 rap.controller('UserController', function ($scope,$http) {
-  $http.get('http://localhost:3000/login').success(function(data) { $scope.user = data;});
+  $http.get('http://localhost:3000/signin').success(function(data) { $scope.user = data;});
 });
 
 // 注册页面Controller
@@ -60,7 +60,7 @@ rap.controller('RegisterController', function ($scope,$http) {
 // 修改用户信息Controller
 rap.controller('UpdateUserController', function ($scope,$http) {
 	var serviceUrl = "/user/updateUser/";
-	$http.get('http://localhost:3000/login').success(function(data) {
+	$http.get('http://localhost:3000/signin').success(function(data) {
 		$scope.user = data;
 		serviceUrl += data._id;
 	});
