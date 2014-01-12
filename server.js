@@ -38,7 +38,43 @@ if ('development' == app.get('env')) {
 
 //var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
 var mongoUri = 'mongodb://sank:123@widmore.mongohq.com:10010/ds';
-mongoose.connect(mongoUri);
+mongoose.connect(mongoUri, function (err, res) {
+  if (err) { 
+    console.log ('ERROR connecting to: ' + mongoUri + '. ' + err);
+  } else {
+    console.log ('Succeeded connected to: ' + mongoUri);
+  }
+});
+
+// This is the schema.  Note the types, validation and trim
+// statements.  They enforce useful constraints on the data.
+var userSchema = new mongoose.Schema({
+  name: {
+    first: String,
+    last: { type: String, trim: true }
+  },
+  age: { type: Number, min: 0}
+});
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'PowerUsers' collection in the MongoDB database
+var PUser = mongoose.model('PowerUsers', userSchema);
+
+// Clear out old data
+PUser.remove({}, function(err) {
+  if (err) {
+    console.log ('error deleting old data.');
+  }
+});
+
+// Creating one user.
+var johndoe = new PUser ({
+  name: { first: 'John', last: '  Doe   ' },
+  age: 25
+});
+
+// Saving it to the database.  
+johndoe.save(function (err) {if (err) console.log ('Error on save!')});
 
 var api = require('./server/routes/api')(app);
 
