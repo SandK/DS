@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "dependencies": {
     "express": "3.4.4",
@@ -12,6 +13,7 @@
     "should" : "*",
     "passport" : "*",
     "passport-local" : "*",
-    "passport-local-mongoose" : "*"
+    "passport-local-mongoose" : "*",
+    "bower": "~1.2.7"
   }
 }

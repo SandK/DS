@@ -36,7 +36,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-mongoose.connect('mongodb://localhost:27017/local');
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
+mongoose.connect(mongoUri);
 
 var api = require('./routes/api')(app);
 
