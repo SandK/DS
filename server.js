@@ -37,8 +37,8 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-//var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
-var mongoUri = 'mongodb://sank:123@widmore.mongohq.com:10010/ds';
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
+//var mongoUri = 'mongodb://sank:123@widmore.mongohq.com:10010/ds';
 mongoose.connect(mongoUri, function (err, res) {
   if (err) { 
     console.log ('ERROR connecting to: ' + mongoUri + '. ' + err);
