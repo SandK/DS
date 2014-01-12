@@ -15,7 +15,7 @@ module.exports = function (app) {
 		if (req.user) {
 			res.send(req.user);
 		} else {
-			res.send('#/user');
+			res.send(401);
 		}
 	})
 
