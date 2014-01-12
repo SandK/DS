@@ -23,6 +23,13 @@ rap.config(function ($routeProvider) {
       controller: 'UserController'
     })
 
+	// 修改用户信息
+	.when('/user/updateUser',
+	{
+      templateUrl: 'partials/updateUser.html',
+      controller: 'UpdateUserController'
+    })
+
 
     .otherwise( { redirectTo: '/'})
 
@@ -48,4 +55,20 @@ rap.controller('UserController', function ($scope,$http) {
 // 注册页面Controller
 rap.controller('RegisterController', function ($scope,$http) {
 
+});
+
+// 修改用户信息Controller
+rap.controller('UpdateUserController', function ($scope,$http) {
+	var serviceUrl = "/user/updateUser/";
+	$http.get('http://localhost:3000/login').success(function(data) {
+		$scope.user = data;
+		serviceUrl += data._id;
+	});
+	// 保存用户信息
+	$scope.save = function() {
+		$http.post(serviceUrl, $scope.user)
+			.success(function (data) {
+				//console.log("------------ save succ ---------");
+			});
+	};
 });

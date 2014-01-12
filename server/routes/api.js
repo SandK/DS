@@ -26,8 +26,35 @@ module.exports = function (app) {
 		      if (err) {
 		        return res.send(err);
 		      }
-		      res.redirect('/confirm.html');
+		      res.redirect('/success.html');
 		    }
 	    );
 	});
+
+	// 注销
+	app.get('/logout', function (req, res) {
+		req.logout();
+		res.redirect('/');
+	})
+
+	// 修改用户信息
+	app.post('/user/updateUser/:id', function (req, res) {
+		delete req.body._id;
+		User.update({_id: req.params.id}, req.body, function(err, affected) {
+			if (err) {
+				res.send(err)
+				return ;
+			} else {
+				res.send(200);
+				return ;
+			}
+		});
+	})
+
+	function ensureAuthenticated(req, res, next) {
+		if (req.isAuthenticated()) {
+			return next();
+		}
+		//res.redirect('/login');
+	}
 }
