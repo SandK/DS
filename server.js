@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 // passport
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('./models/User.js');
+var User = require('./server/models/User.js');
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -29,7 +29,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(app.router);
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, './public')));
 
 // development only
 if ('development' == app.get('env')) {
@@ -39,10 +39,10 @@ if ('development' == app.get('env')) {
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
 mongoose.connect(mongoUri);
 
-var api = require('./routes/api')(app);
+var api = require('./server/routes/api')(app);
 
 app.all('/', function(req, res) {
-  res.sendfile('index.html', { root: "../public" });
+  res.sendfile('index.html', { root: "./public" });
 });
 
 http.createServer(app).listen(app.get('port'), function(){
