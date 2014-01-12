@@ -9,6 +9,9 @@
     "express": "3.4.4",
     "mongoose": "*",
     "mocha" : "*",
-    "should" : "*"
+    "should" : "*",
+    "passport" : "*",
+    "passport-local" : "*",
+    "passport-local-mongoose" : "*"
   }
 }
