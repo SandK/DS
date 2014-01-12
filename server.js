@@ -36,7 +36,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
+//var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
+var mongoUri = 'mongodb://sank:123@widmore.mongohq.com:10010/ds';
 mongoose.connect(mongoUri);
 
 var api = require('./server/routes/api')(app);
