@@ -13,9 +13,9 @@ module.exports = function (app) {
 
 	app.get('/login', function (req, res) {
 		if (req.user) {
-			res.send(req.user);
+			return res.send(req.user);
 		} else {
-			res.send(401);
+			return res.send(401);
 		}
 	})
 
@@ -42,11 +42,9 @@ module.exports = function (app) {
 		delete req.body._id;
 		User.update({_id: req.params.id}, req.body, function(err, affected) {
 			if (err) {
-				res.send(err)
-				return ;
+				return res.send(err);
 			} else {
-				res.send(200);
-				return ;
+				return res.send(200);
 			}
 		});
 	})
