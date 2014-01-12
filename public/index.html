@@ -1,13 +1,72 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="DS">
+<html lang="en" ng-app="DS-App">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>DS</title>
-      </head>
-	<body ng-controller="WelcomeController">
 
-	<h1>SanK</h1>
+    <!-- Bootstrap core CSS -->
+    <link href="./js/vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="./js/vendor/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
-	<script src="javascripts/vendor/angular/angular.min.js"></script>
-	<script src="javascripts/app.js"></script>
-	</body>
+	<link href="css/theme.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="NavController">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">{{title}}</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#">首页</a></li>
+            <!-- TODO::
+            <li><a href="#admin">管理员</a></li>
+            <li><a href="#member">用户</a></li>
+            !-->
+            <!--	TODO::
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{member.nickname}}<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="/logout">Logout</a></li>
+            	</ul>
+			</li>
+            !-->
+        </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container theme-showcase">
+
+    <ng-view></ng-view>
+
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/vendor/jquery/jquery.min.js"></script>
+    <script src="./js/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./js/vendor/angular/angular.min.js"></script>
+    <script src="./js/vendor/angular-route/angular-route.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
 </html>
