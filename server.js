@@ -47,10 +47,8 @@ mongoose.connect(mongoUri, function (err, res) {
   }
 });
 
-var api = require('./server/routes/api')(app);
-
-app.all('/', function(req, res) {
-  res.sendfile('index.html', { root: "./public" });
+app.get('/', function(req, res) {
+  res.send('Hello World!');
 });
 
 http.createServer(app).listen(app.get('port'), function(){
