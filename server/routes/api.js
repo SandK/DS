@@ -13,9 +13,9 @@ module.exports = function (app) {
 
 	app.get('/login', function (req, res) {
 		if (req.user) {
-			res.redirect(req.user);
+			res.send(req.user);
 		} else {
-			res.redirect('#/user');
+			res.send('#/user');
 		}
 	})
 
