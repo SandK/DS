@@ -6,11 +6,7 @@ module.exports = function (app) {
 
 	// 登录
 	app.get('/signin', function (req, res) {
-		if (req.user) {
-			return res.send(req.user);
-		} else {
-			return res.send(401);
-		}
+		res.send("hello");
 	})
 
 	app.post('/login', passport.authenticate('local'), function (req, res) {
