@@ -68,7 +68,7 @@ rap.controller('UpdateUserController', function ($scope,$http) {
 	$scope.save = function() {
 		$http.post(serviceUrl, $scope.user)
 			.success(function (data) {
-				//console.log("------------ save succ ---------");
+				console.log("------------ save succ ---------");
 			});
 	};
 });

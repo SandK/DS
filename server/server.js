@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 // passport
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('./server/models/User.js');
+var User = require('./models/User.js');
 
 var app = express();
 
@@ -26,7 +26,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(app.router);
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, '../web/')));
 
 // development only
 if ('development' == app.get('env')) {
@@ -47,11 +47,7 @@ mongoose.connect(mongoUri, function (err, res) {
   }
 });
 
-var api = require('./server/routes/api')(app);
-
-app.all('/', function(req, res) {
-  res.sendfile('index.html', { root: "./public" });
-});
+var api = require('./routes/api')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
