@@ -13,7 +13,6 @@
     "should" : "*",
     "passport" : "*",
     "passport-local" : "*",
-    "passport-local-mongoose" : "*",
-    "bower": "~1.2.7"
+    "passport-local-mongoose" : "*"
   }
 }
