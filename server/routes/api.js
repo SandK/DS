@@ -6,9 +6,9 @@ module.exports = function (app) {
 
 	// 登录
 	app.post('/login', passport.authenticate('local'), function (req, res) {
-		if (req.user) {
-			res.redirect('#/web/user');
-		}
+		// if (req.user) {
+			res.redirect('#/loginSuccess');
+		// }
 	})
 
 	app.get('/login', function (req, res) {
@@ -19,7 +19,6 @@ module.exports = function (app) {
 		}
 	})
 
-
 	// 注册
 	app.post('/register', function (req, res) {
 	    User.register(new User({username : req.body.username}), req.body.password, 
@@ -27,7 +26,7 @@ module.exports = function (app) {
 		      if (err) {
 		        return res.send(err);
 		      }
-		      res.redirect('/success.html');
+		      res.redirect('#/success');
 		    }
 	    );
 	});
