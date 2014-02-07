@@ -1,13 +1,18 @@
 require.config({
 	baseUrl: '/js',
 	paths: {
-		'jQuery': 'libs/jquery',
-		'angular': 'libs/angular',
-		'bootstrap': 'libs/bootstrap/dist/js/bootstrap'
+		'jQuery': 'libs/jquery/jquery',
+		'angular': 'libs/angular/angular',
+		'bootstrap': 'libs/bootstrap/dist/js/bootstrap',
+		'angular-route': 'libs/angular-route/angular-route'
 	},
 	shim: {
 		'angular': {
 			exports: 'angular'
+		},
+		'angular-route': {
+			deps: ['angular'],
+			exports: 'angular-route'
 		},
 		'jQuery': {
 			exports: 'jQuery'
@@ -22,6 +27,7 @@ require.config({
 require([
 	'jQuery', 
 	'angular', 
+	'angular-route',
 	'bootstrap',
 	'modules/home/home',
 	'modules/home/router',
