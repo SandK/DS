@@ -4,7 +4,8 @@ require.config({
 		'jQuery': 'libs/jquery/jquery',
 		'angular': 'libs/angular/angular',
 		'bootstrap': 'libs/bootstrap/dist/js/bootstrap',
-		'angular-route': 'libs/angular-route/angular-route'
+		'angular-route': 'libs/angular-route/angular-route',
+		'angular-ui-route': 'vendors/angular-ui-route/angular-ui-route'
 	},
 	shim: {
 		'angular': {
@@ -13,6 +14,10 @@ require.config({
 		'angular-route': {
 			deps: ['angular'],
 			exports: 'angular-route'
+		},
+		'angular-ui-route': {
+			deps: ['angular'],
+			exports: 'angular-ui-route'
 		},
 		'jQuery': {
 			exports: 'jQuery'
@@ -28,6 +33,7 @@ require([
 	'jQuery', 
 	'angular', 
 	'angular-route',
+	'angular-ui-route',
 	'bootstrap',
 	'modules/home/home',
 	'modules/home/router',

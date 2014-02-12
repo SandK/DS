@@ -1,3 +1,3 @@
-define(['angular', 'angular-route'] , function (angular) { 
-	return angular.module('task', ['ngRoute']);
+define(['angular', 'angular-ui-route'] , function (angular) { 
+	return angular.module('task', ['ui.router']);
 });

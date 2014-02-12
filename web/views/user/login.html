@@ -1,15 +1,21 @@
-<div class="jumbotron">
-  <h1>快来加入 {{appName}} !</h1>
-  <form class="form-inline spacer" role="form" method="post" action="/login">
-    <div class="form-group">
-      <label class="sr-only">用户名</label>
-      <input type="text" class="form-control" name="username" placeholder="用户名">
+<div id="loginDialog" class="modal-dialog" ng-controller="LoginController">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="myModalLabel">登陆</h4>
     </div>
-    <div class="form-group">
-      <label class="sr-only">密码</label>
-      <input type="password" class="form-control" name="password" placeholder="密码">
+    <div class="modal-body">
+      <form class="form-signin" role="form">
+        <input id="loginUsername" name="username" type="text" class="form-control" placeholder="用户名" required autofocus>
+        <input id="loginPassword" name="password" type="password" class="form-control" placeholder="密码" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> 记住密码
+        </label>
+      </form>
     </div>
-    <button type="submit" class="btn btn-default">登录</button>
-  </form>
-  <p><a href="#register" class="btn btn-success" role="button">注册! &raquo;</a></p>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click="showRegiest()">注册</button>
+      <button type="button" class="btn btn-primary" ng-click="doLogin()">登陆</button>
+    </div>
+  </div>
 </div>

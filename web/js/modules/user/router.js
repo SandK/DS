@@ -1,31 +1,55 @@
 define([
 	'modules/user/user', 
 	'modules/user/controllers/LoginC',
-	'modules/user/controllers/LoginSuccessC',
 	'modules/user/controllers/RegiestC',
+	'modules/user/controllers/LoginSuccessC',
 	'modules/user/controllers/updateC'
 ], function(user) {
-	user.config(['$routeProvider', function ($routeProvider) {
-	 	$routeProvider.
-	 		when('/', {
-				templateUrl: 'views/user/login.html',
-				controller: 'LoginController'
-			}).
-			when('/register', {
-	      		templateUrl: 'views/user/register.html',
-	      		controller: 'RegisterController'
-	    	}).
-	    	when('/loginSuccess', {
-		      	templateUrl: 'views/user/loginSuccess.html',
-		      	controller: 'LoginSuccessController'
-		    }).
-		    when('/user/updateUser', {
-		      	templateUrl: 'views/user/update.html',
-		      	controller: 'UpdateController'
-		    }).
-		    when('/success', { 
-	    		templateUrl: 'views/user/regiestSuccess.html'
-	   	 	}).
-	   	 	otherwise({redirectTo: '/'})
-	}]);
+	user.config(function ($stateProvider, $urlRouterProvider) {
+		$stateProvider
+			.state('showLogin', {
+				url: "/showLogin",
+		        views: {
+					"signDialog" : {
+						templateUrl: 'views/user/login.html',
+						controller: 'LoginController'
+					}
+			  	}
+			})
+			.state('showRegiest', {
+				url: "/showRegiest",
+		        views: {
+					"signDialog" : {
+						templateUrl: 'views/user/regiest.html',
+						controller: 'RegiestController'
+					}
+			  	}
+			})
+		    .state('loginSuccess', {
+		        url: "/loginSuccess",
+		        views: {
+					"mainPanel" : {
+						templateUrl: 'views/user/loginSuccess.html',
+						controller: 'LoginSuccessController'
+					}
+			  	}
+		    })
+		    .state('updateUser', {
+				url: "/user/updateUser",
+				views: {
+					"mainPanel" : {
+						templateUrl: 'views/user/update.html',
+						controller: 'UpdateController'
+					}
+				}
+			})
+		    .state('success', {				
+		    	url: "/success",
+				views: {
+					"mainPanel" : {
+						templateUrl: 'views/user/regiestSuccess.html'
+					}
+				}
+		    });
+	});
 });
