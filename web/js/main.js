@@ -35,18 +35,10 @@ require([
 	'angular-route',
 	'angular-ui-route',
 	'bootstrap',
-	'modules/home/home',
-	'modules/home/router',
-	'modules/user/user',
-	'modules/user/router',
-	'modules/task/task',
-	'modules/task/router'
+	'modules/ds',
+	'modules/router'
 ] , function($, angular) {
 	$(function () {
-		angular.bootstrap(document, [
-			'home',
-			'user',
-			'task'
-		]);
+		angular.bootstrap(document, ['ds']);
 	});
 });

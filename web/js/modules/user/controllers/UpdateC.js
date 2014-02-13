@@ -1,5 +1,5 @@
-define(['modules/user/user'], function(user) {
-	user.controller('UpdateController', function ($scope,$http) {
+define(['modules/ds'], function(ds) {
+	ds.controller('UpdateController', function ($scope,$http) {
 		var serviceUrl = "/user/updateUser/";
 		$http.get('/login').success(function(data) {
 			$scope.user = data;

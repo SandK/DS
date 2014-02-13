@@ -17,35 +17,8 @@
   </head>
 
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="NavController">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">{{title}}</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#">首页</a></li>
-            <!-- 当用户信息不存在时才显示 !-->
-            <li class="dropdown" ng-if="user==null">
-               <a href="#showLogin" ng-click="showLoginDialog()">登陆</a>
-            </li>
-            <!-- 当用户信息存在时才显示 !-->
-            <li class="dropdown" ng-if="user!=null">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">{{user.username}}<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#user/updateUser">修改用户信息</a></li>
-                    <li><a href="/logout">注销</a></li>
-              	</ul>
-      			</li>
-        </ul>
-        </div>
-      </div>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div ng-include="'views/nav/nav.html'"></div>
     </div>
 
     <!-- 主界面内容 !-->
@@ -54,8 +27,8 @@
     </div>
 
     <!-- 登陆注册弹出框 !-->
-    <div class="modal fade" id="userSign" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div ui-view="signDialog"></div>
+    <div class="modal fade" id="userSign" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="SignController">
+        <div ng-include="template.url"></div>
     </div>
 
     <script type="text/javascript" data-main="js/main" src="js/libs/requirejs/requirejs-bower-2.1.10/require.js"></script>
