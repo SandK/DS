@@ -14,4 +14,3 @@ define(['modules/ds'], function(ds) {
 		}
 	});
 });
-	

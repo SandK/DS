@@ -1,13 +1,13 @@
 define(['modules/ds'], function(ds) {
 	ds.factory('userService', function ($http) {
 		return {
-			doRegiest: function(callback) {
+			doRegiest: function(params) {
 				$http({
 					method:'POST', 
 					url: '/register',
 					params: {
-						username: $("#regiestUsername").val(),
-						password: $("#regiestPassword").val()
+						username: params.username,
+						password: params.password
 					}
 				}).success(function() {
 					$("#userSign").modal('hide');
@@ -17,13 +17,13 @@ define(['modules/ds'], function(ds) {
 				});
 			},
 
-			doLogin: function(callback) {
+			doLogin: function(params) {
 				$http({
 					method:'POST', 
 					url: '/login',
 					params: {
-						username: $("#loginUsername").val(),
-						password: $("#loginPassword").val()
+						username: params.username,
+						password: params.password
 					}
 				}).success(function() {
 					$("#userSign").modal('hide');

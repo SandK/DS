@@ -4,7 +4,6 @@ define([
 	'modules/task/controllers/taskC',
 	'modules/user/services/userS',
 	'modules/user/controllers/SignC',
-	'modules/user/controllers/LoginSuccessC',
 	'modules/user/controllers/updateC'
 ], function(ds) {
 	ds.config(function ($stateProvider, $urlRouterProvider) {

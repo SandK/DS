@@ -8,11 +8,19 @@ define(['modules/ds'], function(ds) {
 			url: 'views/user/regiest.html'
 		}];
 
-	  	$scope.template = $scope.templates[0];
-
 	  	$('#userSign').on('show.bs.modal', function (e) {
 			$scope.template = $scope.templates[0];
 		})
+
+		$scope.login = {
+			"username": "",
+			"password": ""
+		}
+
+		$scope.regiest = {
+			"username": "",
+			"password": ""
+		}
 
 		$scope.showLogin = function() {
 			$scope.template = $scope.templates[0];
@@ -23,7 +31,17 @@ define(['modules/ds'], function(ds) {
 		}
 
 		$scope.doLogin = function() {
-			userService.doLogin();
+			userService.doLogin({
+				username: $scope.login.username, 
+				password: $scope.login.password
+			});
+		}
+
+		$scope.doRegiest = function() {
+			userService.doRegiest({
+				username: $scope.login.username, 
+				password: $scope.login.password
+			});
 		}
 	});
 });
