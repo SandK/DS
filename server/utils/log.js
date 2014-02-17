@@ -1,17 +1,5 @@
 var log4js = require('log4js');
-log4js.configure({
-  appenders: [
-    { type: 'console' }, //控制台输出
-    {
-      type: 'file', //文件输出
-      filename: 'logs/access.log', 
-      maxLogSize: 10240,
-      backups: 4,
-      category: 'normal' 
-    }
-  ],
-  replaceConsole: true
-});
+log4js.configure('utils/log4jsConf.json', {reloadSecs: 300});
   
 var dateFileLog = log4js.getLogger('normal');
 dateFileLog.setLevel('INFO');

@@ -1,0 +1,15 @@
+{
+  "appenders": [
+    { 
+      "type": "console" 
+    },
+    {
+      "type": "file",
+      "filename": "logs/access.log", 
+      "maxLogSize": 10240,
+      "backups": 4,
+      "category": "normal"
+    }
+  ],
+  "replaceConsole": true
+}
