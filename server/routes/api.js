@@ -1,6 +1,7 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = require('../models/User');
+var logger = require('../utils/log').logger;
 
 module.exports = function (app) {
 
@@ -21,6 +22,7 @@ module.exports = function (app) {
 
 	// 注册
 	app.post('/register', function (req, res) {
+		logger.info("register --------------------");
 	    User.register(new User({username : req.body.username}), req.body.password, 
 		    function(err, user) {
 		      if (err) {

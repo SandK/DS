@@ -1,3 +1,4 @@
+var log = require('./utils/log');
 var express = require('express');
 var http = require('http');
 var path = require('path');
@@ -9,7 +10,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/User.js');
 
-var app = express();
+var app = express();  
+log.use(app);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -46,6 +48,9 @@ mongoose.connect(mongoUri, function (err, res) {
     console.log ('Succeeded connected to: ' + mongoUri);
   }
 });
+
+var logger = require('./utils/log').logger;
+//logger.info("this is log");
 
 var api = require('./routes/api')(app);
 
