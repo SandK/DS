@@ -7,3 +7,13 @@
 
 2014.02.17
 1.早上将log4js模块加入
+2.晚上将log4js改成读取配置
+3.搜索nodejs自动化测试相关资料
+
+Testing Your Model with Mocha, Mongo, and NodeJS
+http://www.wekeroad.com/2012/02/25/testing-your-model-with-mocha-mongo-and-nodejs/
+
+nodejs unit testing 朴灵
+http://html5ify.com/unittesting/slides/index.html#/
+---------------------------------------------
+
