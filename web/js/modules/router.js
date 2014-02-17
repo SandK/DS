@@ -7,7 +7,7 @@ define([
 	'modules/user/controllers/updateC'
 ], function(ds) {
 	ds.config(function ($stateProvider, $urlRouterProvider) {
-	 	$urlRouterProvider.otherwise("/");
+	 	$urlRouterProvider.otherwise("");
 		$stateProvider
 			.state('index', {
 				url: "",

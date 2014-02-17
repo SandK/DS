@@ -2,45 +2,57 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var User = require('../models/User');
 var logger = require('../utils/log').logger;
+var Response = require('./Response');
 
 module.exports = function (app) {
-
 	// 登录
-	app.post('/login', passport.authenticate('local'), function (req, res) {
-		// if (req.user) {
-			res.redirect('#/loginSuccess');
-		// }
+	app.post('/user', passport.authenticate('local'), function (req, res) {
+		logger.info("login --------------------");
+		res.send(new Response(true, "login success"));
 	})
 
-	app.get('/login', function (req, res) {
+	// 获取用户
+	app.get('/user', function (req, res) {
+		logger.info("get user --------------------");
 		if (req.user) {
-			res.send(req.user);
+			res.send(new Response(true, "get user success", {
+				user: req.user
+			}));
 		} else {
-			res.send(401);
+			res.send(new Response(false, "get user fail", {
+				user: null
+			}));
 		}
 	})
 
 	// 注册
-	app.post('/register', function (req, res) {
+	app.put('/user', function (req, res) {
 		logger.info("register --------------------");
-	    User.register(new User({username : req.body.username}), req.body.password, 
+
+		var username = req.query.username;
+		var password = req.query.password;
+		logger.info("username: " + username + " password: " + password);
+
+	    User.register(new User({username : req.query.username}), req.query.password, 
 		    function(err, user) {
-		      if (err) {
-		        return res.send(err);
-		      }
-		      res.redirect('#/success');
+		      	if (!err) {
+		      		res.send(new Response(true, "regiest success"));
+		      	} else {
+		      		res.send(new Response(false, "regiest fail"));
+		      	}
 		    }
 	    );
 	});
 
 	// 注销
-	app.get('/logout', function (req, res) {
+	app.delete('/user', function (req, res) {
+		console.log("logout --------------------");
 		req.logout();
-		res.redirect('/');
+		res.send(new Response(true, "logout success"));
 	})
 
 	// 修改用户信息
-	app.post('/user/updateUser/:id', function (req, res) {
+	app.options('/user/updateUser/:id', function (req, res) {
 		delete req.body._id;
 		User.update({_id: req.params.id}, req.body, function(err, affected) {
 			if (err) {
@@ -55,6 +67,5 @@ module.exports = function (app) {
 		if (req.isAuthenticated()) {
 			return next();
 		}
-		//res.redirect('/login');
 	}
 }

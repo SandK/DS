@@ -1,15 +1,51 @@
 define(['modules/ds'], function(ds) {
-	ds.controller('NavController', function ($scope, $http) {
+	ds.controller('NavController', function ($rootScope, $scope, $http, userService) {
 		$scope.title = "许愿树App";
 		$scope.user = null;
 
-		$http.get('/login').success(function(data) { 
-			$scope.user = data;
+		$scope.$on("getUser", function(event, data) {
+			userService.getUser({
+				callback: {
+					success: function(res) {
+						if (res.success) {
+							$scope.user = res.data.user;	
+						} else {
+							$scope.user = null;
+							console.log("get user error: " + res.msg);
+						}
+						data && data.callback && data.callback();
+					},
+					fail: function() {
+						$scope.user = null;
+						console.log("get user fail");
+						data && data.callback && data.callback();
+					}
+				}
+			});
 		});
+
+		$rootScope.$broadcast("getUser");
 
 		$scope.showSingDialog = function() {
 			$("#userSign").modal({
 				show: true
+			});
+		}
+
+		$scope.logout = function() {
+			userService.logout({
+				callback: {
+					success: function(res) {
+						if (res.success) {
+							$rootScope.$broadcast("getUser");
+						} else {
+							console.log("logout error: " + res.msg);
+						}
+					},
+					fail: function() {
+						console.log("logout fail");
+					}
+				}
 			});
 		}
 	});

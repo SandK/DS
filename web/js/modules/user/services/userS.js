@@ -1,43 +1,57 @@
 define(['modules/ds'], function(ds) {
 	ds.factory('userService', function ($http) {
 		return {
-			doRegiest: function(params) {
+			regiest: function(params) {
 				$http({
-					method:'POST', 
-					url: '/register',
+					method:'PUT', 
+					url: '/user',
 					params: {
-						username: params.username,
-						password: params.password
+						username: params.params.username,
+						password: params.params.password
 					}
-				}).success(function() {
-					$("#userSign").modal('hide');
-					console.log("regiest success");
+				}).success(function(res) {
+					params.callback.success && params.callback.success(res);
 				}).error(function(data, status, headers, config) {
-					console.log("regiest error");
+					params.callback.fail && params.callback.fail();
 				});
 			},
 
-			doLogin: function(params) {
+			login: function(params) {
 				$http({
 					method:'POST', 
-					url: '/login',
+					url: '/user',
 					params: {
-						username: params.username,
-						password: params.password
+						username: params.params.username,
+						password: params.params.password
 					}
-				}).success(function() {
-					$("#userSign").modal('hide');
-					console.log("login success");
+				}).success(function(res) {
+					params.callback.success && params.callback.success(res);
 				}).error(function(data, status, headers, config) {
-					console.log("login error");
+					params.callback.fail && params.callback.fail();
 				});
 			},
 
-			// getUser: function($scope) {
-			// 	$http.get('/login').success(function(data) {
-			// 		$scope.user = data;
-			// 	});
-			// }
+			getUser: function(params) {
+				$http({
+					method:'GET',
+					url: '/user'
+				}).success(function(res) {
+					params.callback.success && params.callback.success(res);
+				}).error(function(data, status, headers, config) {
+					params.callback.fail && params.callback.fail();
+				});
+			},
+
+			logout: function(params) {
+				$http({
+					method:'DELETE',
+					url: '/user'
+				}).success(function(res) {
+					params.callback.success && params.callback.success(res);
+				}).error(function(data, status, headers, config) {
+					params.callback.fail && params.callback.fail();
+				});
+			}
 		};
 	});
 });
