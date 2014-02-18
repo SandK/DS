@@ -1,4 +1,4 @@
-﻿工作日志 当前最高连击数：3
+﻿工作日志 当前最高连击数：4
 
 2014.02.16
 1.更新运行项目
@@ -26,3 +26,8 @@ https://github.com/visionmedia/should.js
 
 BDD测试利器：mocha+should.js
 http://www.cnblogs.com/ZJAJS/archive/2013/03/03/2941659.html
+---------------------------------------------
+
+2014.02.19
+重构UserModel
+注册、查找用户增加单元测试
