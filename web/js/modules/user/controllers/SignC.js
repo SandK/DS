@@ -13,6 +13,12 @@ define(['modules/ds'], function(ds) {
 			$scope.template = $scope.templates[0];
 		});
 
+	  	$scope.$on("showUserDialog", function() {
+	  		$("#userSign").modal({
+				show: true
+			});
+	  	});
+		
 		$scope.showLogin = function() {
 			$scope.template = $scope.templates[0];
 		}
@@ -48,6 +54,10 @@ define(['modules/ds'], function(ds) {
 		}
 
 		$scope.doRegiest = function() {
+			if (regiest.passwordAg != regiest.password) {
+				alert("2次密码输入不一致");
+				return ;
+			}
 			userService.regiest({
 				params: {
 					username: $scope.regiest.username, 
@@ -98,7 +108,8 @@ define(['modules/ds'], function(ds) {
 			}
 			$scope.regiest = {
 				"username": "",
-				"password": ""
+				"password": "",
+				"passwordAg": ""
 			}
 		}
 

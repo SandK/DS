@@ -42,6 +42,18 @@ define(['modules/ds'], function(ds) {
 				});
 			},
 
+			updateUser: function(params) {
+				$http({
+					method:'OPTIONS',
+					url: params.params.url,
+					params: params.params.user
+				}).success(function(res) {
+					params.callback.success && params.callback.success(res);
+				}).error(function(data, status, headers, config) {
+					params.callback.fail && params.callback.fail();
+				});
+			},
+
 			logout: function(params) {
 				$http({
 					method:'DELETE',

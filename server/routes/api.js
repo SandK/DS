@@ -53,12 +53,13 @@ module.exports = function (app) {
 
 	// 修改用户信息
 	app.options('/user/updateUser/:id', function (req, res) {
+		console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		delete req.body._id;
 		User.update({_id: req.params.id}, req.body, function(err, affected) {
 			if (err) {
-				return res.send(err);
+				return res.send(new Response(false, "update fail", err));
 			} else {
-				return res.send(200);
+				return res.send(new Response(true, "update success"));
 			}
 		});
 	})

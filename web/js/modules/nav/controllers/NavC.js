@@ -27,8 +27,12 @@ define(['modules/ds'], function(ds) {
 		$rootScope.$broadcast("getUser");
 
 		$scope.showSingDialog = function() {
-			$("#userSign").modal({
-				show: true
+			$rootScope.$broadcast("showUserDialog");
+		}
+
+		$scope.showUpdateUserDialog = function() {
+			$rootScope.$broadcast("showUpdateDialog", {
+				user: $scope.user
 			});
 		}
 
