@@ -1,0 +1,1 @@
+mocha myTest.js -R spec

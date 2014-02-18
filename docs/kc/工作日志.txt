@@ -1,4 +1,4 @@
-﻿工作日志 当前最高连击数：2
+﻿工作日志 当前最高连击数：3
 
 2014.02.16
 1.更新运行项目
@@ -17,3 +17,12 @@ nodejs unit testing 朴灵
 http://html5ify.com/unittesting/slides/index.html#/
 ---------------------------------------------
 
+2014.02.18
+写单元测试demo
+
+相关资料
+should.js
+https://github.com/visionmedia/should.js
+
+BDD测试利器：mocha+should.js
+http://www.cnblogs.com/ZJAJS/archive/2013/03/03/2941659.html
