@@ -28,76 +28,63 @@ define(['modules/ds'], function(ds) {
 		}
 
 		$scope.doLogin = function() {
-			userService.login({
-				params: {
-					username: $scope.login.username, 
-					password: $scope.login.password,
-				},
-				callback: {
-					success: function(res) {
-						if (res.success) {
-							$rootScope.$broadcast("getUser", {
-								callback: function() {
-									$("#userSign").modal('hide');
-								}
-							});
-						} else {
-							console.log("login error: " + res.msg);
+			userService.login({}, {
+				username: $scope.login.username, 
+				password: $scope.login.password,
+			}, function(res) {
+				if (res.success) {
+					$rootScope.$broadcast("getUser", {
+						callback: function() {
+							$("#userSign").modal('hide');
 						}
-					},
-					fail: function() {
-						$("#userSign").modal('hide');
-						console.log("login fail");
-					}
+					});
+				} else {
+					console.log("login error: " + res.msg);
 				}
+			}, function() {
+				$("#userSign").modal('hide');
+				console.log("login fail");
 			});
 		}
 
 		$scope.doRegiest = function() {
-			if (regiest.passwordAg != regiest.password) {
+			if ($scope.regiest.passwordAg != $scope.regiest.password) {
 				alert("2次密码输入不一致");
 				return ;
 			}
-			userService.regiest({
-				params: {
-					username: $scope.regiest.username, 
-					password: $scope.regiest.password,
-				},
-				callback: {
-					success: function(res) {
-						if (res.success) {
-							doRegiestSuccess($scope.regiest.username, $scope.regiest.password);
-						} else {
-							console.log("regiest error: " + res.msg);
-						}
-					},
-					fail: function() {
-						$("#userSign").modal('hide');
-						console.log("regiest fail");
-					}
+			userService.regiest({}, {
+				username: $scope.regiest.username, 
+				password: $scope.regiest.password,
+			}, function(res) {
+				console.log(res);
+				if (res.success) {
+					doRegiestSuccess($scope.regiest.username, $scope.regiest.password);
+				} else {
+					console.log("regiest error: " + res.msg);
 				}
+			}, function() {
+				$("#userSign").modal('hide');
+				console.log("regiest fail");
 			});
 		}
 
 		var doRegiestSuccess = function(username, password) {
-			userService.login({
-				params: {
-					username: username, 
-					password: password,
-				},
-				callback: {
-					success: function() {
-						$rootScope.$broadcast("getUser", {
-							callback: function() {
-								$("#userSign").modal('hide');
-							}
-						});
-					},
-					fail: function() {
-						$("#userSign").modal('hide');
-						console.log("login fail");
-					}
+			userService.login({}, {
+				username: username, 
+				password: password,
+			}, function(res) {
+				if (res.success) {
+					$rootScope.$broadcast("getUser", {
+						callback: function() {
+							$("#userSign").modal('hide');
+						}
+					});
+				} else {
+					console.log("login error: " + res.msg);
 				}
+			}, function() {
+				$("#userSign").modal('hide');
+				console.log("login fail");
 			});
 		}
 

@@ -29,11 +29,11 @@ module.exports = function (app) {
 	app.put('/user', function (req, res) {
 		logger.info("register --------------------");
 
-		var username = req.query.username;
-		var password = req.query.password;
+		var username = req.body.username;
+		var password = req.body.password;
 		logger.info("username: " + username + " password: " + password);
 
-	    User.register(new User({username : req.query.username}), req.query.password, 
+	    User.register(new User({username: req.body.username}), req.body.password, 
 		    function(err, user) {
 		      	if (!err) {
 		      		res.send(new Response(true, "regiest success"));
@@ -52,8 +52,8 @@ module.exports = function (app) {
 	})
 
 	// 修改用户信息
-	app.options('/user/updateUser/:id', function (req, res) {
-		console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	app.options('/user/:id', function (req, res) {
+		console.log("update --------------------");
 		delete req.body._id;
 		User.update({_id: req.params.id}, req.body, function(err, affected) {
 			if (err) {

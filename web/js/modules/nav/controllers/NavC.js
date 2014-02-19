@@ -4,23 +4,18 @@ define(['modules/ds'], function(ds) {
 		$scope.user = null;
 
 		$scope.$on("getUser", function(event, data) {
-			userService.getUser({
-				callback: {
-					success: function(res) {
-						if (res.success) {
-							$scope.user = res.data.user;	
-						} else {
-							$scope.user = null;
-							console.log("get user error: " + res.msg);
-						}
-						data && data.callback && data.callback();
-					},
-					fail: function() {
-						$scope.user = null;
-						console.log("get user fail");
-						data && data.callback && data.callback();
-					}
+			userService.getUser(function(res) {
+				if (res.success) {
+					$scope.user = res.data.user;	
+				} else {
+					$scope.user = null;
+					console.log("get user error: " + res.msg);
 				}
+				data && data.callback && data.callback();
+			}, function() {
+				$scope.user = null;
+				console.log("get user fail");
+				data && data.callback && data.callback();
 			});
 		});
 
@@ -37,19 +32,14 @@ define(['modules/ds'], function(ds) {
 		}
 
 		$scope.logout = function() {
-			userService.logout({
-				callback: {
-					success: function(res) {
-						if (res.success) {
-							$rootScope.$broadcast("getUser");
-						} else {
-							console.log("logout error: " + res.msg);
-						}
-					},
-					fail: function() {
-						console.log("logout fail");
-					}
+			userService.logout(function(res) {
+				if (res.success) {
+					$rootScope.$broadcast("getUser");
+				} else {
+					console.log("logout error: " + res.msg);
 				}
+			},function() {
+				console.log("logout fail");
 			});
 		}
 	});

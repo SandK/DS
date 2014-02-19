@@ -1,7 +1,5 @@
 define(['modules/ds'], function(ds) {
 	ds.controller('UpdateController', function ($rootScope, $scope, $http, userService) {
-		$scope.serviceUrl = "";
-
 		$scope.user = null;
 
 		$scope.templates = [{ 
@@ -14,9 +12,8 @@ define(['modules/ds'], function(ds) {
 		});
 
 		$scope.$on("showUpdateDialog", function(event, data) {
-			reset();
 			$scope.user = data.user;
-			$scope.serviceUrl += data.user._id;
+			console.log($scope.user);
 			$("#userUpdate").modal({
 				show: true
 			});
@@ -24,34 +21,23 @@ define(['modules/ds'], function(ds) {
 
 		$scope.saveUser = function() {
 			userService.updateUser({
-				params: {
-					url: $scope.serviceUrl,
-					user: $scope.user
-				},
-				callback: {
-					success: function(res) {
-						if (res.success) {
-							$rootScope.$broadcast("getUser", {
-								callback: function() {
-									$("#userUpdate").modal('hide');
-								}
-							});
-						} else {
-							console.log("save error: " + res.msg);
+				userId: $scope.user._id
+			}, {
+				user: $scope.user
+			}, function(res) {
+				if (res.success) {
+					$rootScope.$broadcast("getUser", {
+						callback: function() {
+							$("#userUpdate").modal('hide');
 						}
-					},
-					error: function() {
-						console.log("save fail");
-					}
+					});
+				} else {
+					console.log("save error: " + res.msg);
 				}
-			})
+			}, function() {
+				console.log("save fail");
+			});
 		}
-
-		var reset = function() {
-			$scope.serviceUrl = "/user/updateUser/";
-		}
-
-		reset();
 
 		// var serviceUrl = "/user/updateUser/";
 		// $http.get('/login').success(function(data) {
