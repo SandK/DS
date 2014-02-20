@@ -33,34 +33,34 @@ module.exports = function (app) {
 		var password = req.body.password;
 		logger.info("username: " + username + " password: " + password);
 
-	    User.register(new User({username: req.body.username}), req.body.password, 
-		    function(err, user) {
-		      	if (!err) {
-		      		res.send(new Response(true, "regiest success"));
-		      	} else {
-		      		res.send(new Response(false, "regiest fail"));
-		      	}
-		    }
-	    );
+		User.register(username, password, function(user) {
+			res.send(new Response(true, "regiest success"));
+        }, function(e) {
+        	res.send(new Response(false, "regiest fail"));
+        });
 	});
 
 	// 注销
 	app.delete('/user', function (req, res) {
-		console.log("logout --------------------");
+		logger.info("logout --------------------");
 		req.logout();
 		res.send(new Response(true, "logout success"));
 	})
 
 	// 修改用户信息
 	app.options('/user/:id', function (req, res) {
-		console.log("update --------------------");
+		logger.info("updateUser --------------------");
 		delete req.body._id;
-		User.update({_id: req.params.id}, req.body, function(err, affected) {
-			if (err) {
-				return res.send(new Response(false, "update fail", err));
-			} else {
+		var id = req.params.id;
+		var user = req.body;
+		logger.info("updateUser|" + id);
+		logger.info(user);
+		ensureAuthenticated(req, res, function() {
+			User.modifyUserInfo(id, user, function(affected) {
 				return res.send(new Response(true, "update success"));
-			}
+			}, function(e) {
+				return res.send(new Response(false, "update fail", e));
+			});
 		});
 	})
 

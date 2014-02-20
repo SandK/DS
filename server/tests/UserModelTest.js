@@ -20,6 +20,7 @@ describe('User', function(){
         it('should register success', function(done) {
             User.register("kc", "123", function(user) {
                 user.username.should.equal("kc");
+                user.age.should.exactly(0).and.be.a.Number;
                 done();
             }, function(e) {
                 throw(e);

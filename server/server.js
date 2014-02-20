@@ -35,9 +35,9 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(User.model.authenticate()));
+passport.serializeUser(User.model.serializeUser());
+passport.deserializeUser(User.model.deserializeUser());
 
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
 //var mongoUri = 'mongodb://sank:123@widmore.mongohq.com:10010/ds';
@@ -50,7 +50,6 @@ mongoose.connect(mongoUri, function (err, res) {
 });
 
 var logger = require('./utils/log').logger;
-//logger.info("this is log");
 
 var api = require('./routes/api')(app);
 
