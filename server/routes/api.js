@@ -48,11 +48,11 @@ module.exports = function (app) {
 	})
 
 	// 修改用户信息
-	app.options('/user/:id', function (req, res) {
+	app.post('/user/:id', function (req, res) {
 		logger.info("updateUser --------------------");
 		delete req.body._id;
-		var id = req.params.id;
-		var user = req.body;
+		var id = req.body._id;
+		var user = req.body.user;
 		logger.info("updateUser|" + id);
 		logger.info(user);
 		ensureAuthenticated(req, res, function() {

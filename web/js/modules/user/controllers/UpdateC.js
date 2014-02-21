@@ -32,10 +32,10 @@ define(['modules/ds'], function(ds) {
 						}
 					});
 				} else {
-					console.log("save error: " + res.msg);
+					alert("save error: " + res.msg);
 				}
 			}, function() {
-				console.log("save fail");
+				alert("save fail");
 			});
 		}
 

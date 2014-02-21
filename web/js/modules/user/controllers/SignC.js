@@ -56,15 +56,13 @@ define(['modules/ds'], function(ds) {
 				username: $scope.regiest.username, 
 				password: $scope.regiest.password,
 			}, function(res) {
-				console.log(res);
 				if (res.success) {
 					doRegiestSuccess($scope.regiest.username, $scope.regiest.password);
 				} else {
-					console.log("regiest error: " + res.msg);
+					alert("regiest error: " + res.msg);
 				}
 			}, function() {
-				$("#userSign").modal('hide');
-				console.log("regiest fail");
+				alert("regiest fail");
 			});
 		}
 
@@ -80,11 +78,10 @@ define(['modules/ds'], function(ds) {
 						}
 					});
 				} else {
-					console.log("login error: " + res.msg);
+					alert("login error: " + res.msg);
 				}
 			}, function() {
-				$("#userSign").modal('hide');
-				console.log("login fail");
+				alert("login fail");
 			});
 		}
 

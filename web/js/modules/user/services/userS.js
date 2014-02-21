@@ -13,7 +13,7 @@ define(['modules/ds'], function(ds) {
 				method: "GET"
 			},
 			updateUser: {
-				method:'OPTIONS'
+				method:'POST'
 			},
 			logout: {
 				method:'DELETE'
