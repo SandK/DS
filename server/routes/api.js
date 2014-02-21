@@ -50,8 +50,8 @@ module.exports = function (app) {
 	// 修改用户信息
 	app.post('/user/:id', function (req, res) {
 		logger.info("updateUser --------------------");
-		delete req.body._id;
-		var id = req.body._id;
+		var id = req.params.id;
+		delete req.body.user._id;
 		var user = req.body.user;
 		logger.info("updateUser|" + id);
 		logger.info(user);
