@@ -24,6 +24,9 @@ describe('User', function(){
     describe('#save()', function() {
         it('should save', function(done) {
         	UserDao.register('kc', '123', function(e, user) {
+                if (e) {
+                    console.log("err");
+                }
                 user.username.should.equal("kc");
                 user.age.should.exactly(0).and.be.a.Number;
         		done();

@@ -15,8 +15,15 @@ var Util = function () {
 	    subCls.supr = superCls;  
 	};
 
+	var _ensureAuthenticated = function(req, res, next) {
+		if (req.isAuthenticated()) {
+			return next();
+		}
+	};
+
 	return {
-		extend: _extend
+		extend: _extend,
+		ensureAuthenticated: _ensureAuthenticated
 	}
 }();
 
