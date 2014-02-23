@@ -11,8 +11,6 @@ function UserDao() {
 UserDao.prototype.register = function (username, password, callback) {
 	var user = new User({
 		username: username
-		, nickname: ""
-		, age: 0
 	});
 	User.register(user, password, function(e, doc) {
 		callback(e, doc);
