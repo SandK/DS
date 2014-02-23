@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var User = require('../models/User');
 var logger = require('../utils/log').logger;
 var Response = require('./Response');
-var Response = require('../a');
 
 module.exports = function (app) {
 	// 登录
