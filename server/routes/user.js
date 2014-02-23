@@ -1,6 +1,5 @@
 var passport = require('passport');
-var mongoose = require('mongoose');
-var User = require('../models/User');
+var UserDao = require('../dao/UserDao');
 var logger = require('../utils/log').logger;
 var Response = require('./Response');
 
@@ -31,12 +30,14 @@ exports.updateUserInfo = function(req, res) {
 	delete req.body.user._id;
 	var user = req.body.user;
 	logger.info("updateUser|" + id);
-	logger.info(user);
 	ensureAuthenticated(req, res, function() {
-		User.modifyUserInfo(id, user, function(affected) {
-			return res.send(new Response(true, "update success"));
-		}, function(e) {
-			return res.send(new Response(false, "update fail", e));
+		UserDao.update({_id:id}, user, {}, function(e) {
+			if (e) {
+				return res.send(new Response(false, "update fail", e));
+			}
+			else {
+				return res.send(new Response(true, "update success"));
+			}
 		});
 	});
 };
@@ -49,11 +50,14 @@ exports.register = function(req, res) {
 	var password = req.body.password;
 	logger.info("username: " + username + " password: " + password);
 
-	User.register(username, password, function(user) {
-		res.send(new Response(true, "regiest success"));
-    }, function(e) {
-    	res.send(new Response(false, "regiest fail"));
-    });
+	UserDao.register('kc', '123', function(e, user) {
+		if (e) {
+			return res.send(new Response(false, "regiest fail"));
+		}
+		else {
+			return res.send(new Response(true, "regiest success"));
+		}
+	});
 };
 
 // 注销

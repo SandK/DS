@@ -4,14 +4,13 @@ var http = require('http');
 var path = require('path');
 var route = require('./routes/routes');
 
-var mongoose = require('mongoose');
-
 // passport
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('./models/User.js');
+var User = require('./model').User;
 
-var app = express();  
+var app = express();
+// log
 log.use(app);
 
 // all environments
@@ -36,19 +35,9 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-passport.use(new LocalStrategy(User.model.authenticate()));
-passport.serializeUser(User.model.serializeUser());
-passport.deserializeUser(User.model.deserializeUser());
-
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:27017/local';
-//var mongoUri = 'mongodb://sank:123@widmore.mongohq.com:10010/ds';
-mongoose.connect(mongoUri, function (err, res) {
-  if (err) { 
-    console.log ('ERROR connecting to: ' + mongoUri + '. ' + err);
-  } else {
-    console.log ('Succeeded connected to: ' + mongoUri);
-  }
-});
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 route(app);
 
