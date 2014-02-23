@@ -1,5 +1,5 @@
 var log4js = require('log4js');
-log4js.configure('../utils/log4jsConf.json', {reloadSecs: 300});
+log4js.configure(__dirname + '/../utils/log4jsConf.json', {reloadSecs: 300});
   
 var dateFileLog = log4js.getLogger('normal');
 dateFileLog.setLevel('INFO');

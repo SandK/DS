@@ -7,6 +7,7 @@ function UserDao() {
 	UserDao.supr.call(this, User);
 }
 
+// 注册
 UserDao.prototype.register = function (username, password, callback) {
 	var user = new User({
 		username: username

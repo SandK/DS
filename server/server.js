@@ -2,6 +2,7 @@ var log = require('./utils/log');
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var route = require('./routes/routes');
 
 var mongoose = require('mongoose');
 
@@ -49,9 +50,7 @@ mongoose.connect(mongoUri, function (err, res) {
   }
 });
 
-var logger = require('./utils/log').logger;
-
-var api = require('./routes/api')(app);
+route(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
