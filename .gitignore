@@ -1,3 +1,5 @@
 web/js/libs/
+web/resource
 server/node_modules/
 server/logs/
+server/tmp/
