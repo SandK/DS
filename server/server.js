@@ -16,6 +16,13 @@ app.configure(function() {
 	app.use(express.methodOverride());
 	app.use(express.cookieParser());
 
+	// upload
+	app.use(require('connect-multiparty')({
+		keepExtensions: true, 
+		uploadDir: __dirname + '/tmp',
+		limit: '2mb'
+	}));
+
 	// passport
 	var passport = require('passport');
 	var LocalStrategy = require('passport-local').Strategy;
@@ -41,6 +48,24 @@ log.use(app);
 
 // route
 route(app);
+
+var fs = require('fs');
+app.post('/upload', function(req, res) {
+  var tmp_path = req.files.myFile.path;
+  var target_path = __dirname + '/../web/resource/' + req.files.myFile.name;
+  console.log(target_path);
+  fs.rename(tmp_path, target_path, function(err) {
+    if (err)
+    {
+      if (err) console.log(err);
+    }
+    fs.unlink(tmp_path, function() {
+      if (err) console.log(err);
+      console.log('file successfully deleted');
+    });
+  });
+  res.end();
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

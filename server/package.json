@@ -14,6 +14,7 @@
     "passport-local-mongoose" : "*",
     "bower": "~1.2.7",
     "log4js": "*",
-    "should": "*"
+    "should": "*",
+    "connect-multiparty": "*"
   }
 }
