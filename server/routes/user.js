@@ -3,6 +3,7 @@ var UserDao = require('../dao/UserDao');
 var logger = require('../utils/log').logger;
 var Util = require('../utils/Util');
 var Response = require('./Response');
+var config = require('../config');
 
 // 注册
 exports.register = function(req, res) {
@@ -49,12 +50,20 @@ exports.getUserInfo = function(req, res) {
 
 // 修改用户信息
 exports.updateUserInfo = function(req, res) {
+	if (!(req.params && req.params.id)) {
+		return res.send(new Response(false, "update fail|id is null"));
+	}
+
+	if (!(req.body && req.body.user && req.body.user._id)) {
+		return res.send(new Response(false, "update fail|user is null"));
+	}
 	var id = req.params.id;
 	delete req.body.user._id;
 	var user = req.body.user;
 	logger.info("updateUser id: %s", id);
 
-	Util.ensureAuthenticated(req, res, function() {
+	// 更新用户数据库信息
+	var updateUser = function() {
 		UserDao.update({_id:id}, user, {}, function(e) {
 			if (e) {
 				return res.send(new Response(false, "update fail", e));
@@ -63,19 +72,44 @@ exports.updateUserInfo = function(req, res) {
 				return res.send(new Response(true, "update success"));
 			}
 		});
-	});
+	};
+
+	// 上传文件处理
+	var uploadAvatar = function() {
+		var file = req.files.uploadFile;
+		Util.uploadFile(file, function(success, e) {
+			if (success) {
+				// TODO:: 要先删除之前的头像
+				user.avatar = config.uploadPath + file.name;
+				// 更新用户数据库信息
+				updateUser();
+			} else {
+				return res.send(new Response(false, "uploadFile error"), e);
+			}
+		});
+	};
+
+	// 保存数据
+	if (!(req.files && req.files.uploadFile))
+	{
+		Util.ensureAuthenticated(req, res, updateUser);
+	} else
+	{
+		Util.ensureAuthenticated(req, res, uploadAvatar);
+	}
+
 };
 
 // 上传用户头像
 exports.uploadUserAvatar = function(req, res) {
-	var file = req.files.uploadFile;
-	if (null == file || undefined == file) {
+	if (!(req.files && req.files.uploadFile)) {
 		return res.send(new Response(false, "uploadFile fail|file is null"));
 	}
+	var file = req.files.uploadFile;
 	Util.uploadFile(file, function(success, e) {
 		if (success) {
 			return res.send(new Response(true, "uploadFile success", {
-				filePath: 'resource/' + file.name
+				filePath: config.uploadPath + file.name
 			}));
 		} else {
 			return res.send(new Response(false, "uploadFile error"), e);
