@@ -1,0 +1,19 @@
+配置环境
+切换到root
+Sudo su -
+
+安装
+Apt-get install nodejs
+Apt-get install npm
+
+Npm install nodejs
+Npm install node
+Npm install nodejs-legacy
+
+Npm install -g express
+Npm install -g forever
+
+创建一个测试工程
+Express test 
+Cd test && npm install
+Forever start app.js (停止: Forever stop app.js)
