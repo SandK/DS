@@ -12,8 +12,28 @@ Npm install nodejs-legacy
 
 Npm install -g express
 Npm install -g forever
+Npm install -g bower
+Npm install -g node-inspector
 
 创建一个测试工程
-Express test 
+Express test
 Cd test && npm install
 Forever start app.js (停止: Forever stop app.js)
+
+配置git
+apt-get install git
+教程
+https://help.github.com/articles/generating-ssh-keys
+
+安装mongodb
+http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
+启动停止重启
+sudo service mongodb start
+sudo service mongodb stop
+sudo service mongodb restart
+mongo程序
+/usr/bin/mongo
+
+DS环境配置
+bower install --allow-root
+
