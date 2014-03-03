@@ -13,18 +13,19 @@ define(['modules/ds'], function(ds) {
 
 		$scope.$on("showUpdateDialog", function(event, data) {
 			$scope.user = data.user;
-			console.log($scope.user);
 			$("#userUpdate").modal({
 				show: true
 			});
 		});
 
 		$scope.saveUser = function() {
+			var form = new FormData();
+			form.append("user", $scope.user);
+			form.append("file", document.getElementById("head").files[0]);
+
 			userService.updateUser({
 				userId: $scope.user._id
-			}, {
-				user: $scope.user
-			}, function(res) {
+			}, form, function(res) {
 				if (res.success) {
 					$rootScope.$broadcast("getUser", {
 						callback: function() {

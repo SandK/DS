@@ -18,6 +18,11 @@
       <h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
     </div>
     <div class="modal-body">
+      <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+          <i class="glyphicon glyphicon-plus"></i>
+          <span>Add files...</span>
+          <input id="head" type="file" name="headImg" multiple ng-disabled="disabled">
+      </span>
       <div class="form-group">
         <label>昵称</label>
         <input ng-model="user.nickname" name="username" type="text" class="form-control" placeholder="用户名" required autofocus>

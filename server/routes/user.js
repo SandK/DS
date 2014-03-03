@@ -54,18 +54,20 @@ exports.updateUserInfo = function(req, res) {
 		return res.send(new Response(false, "update fail|id is null"));
 	}
 
-	if (!(req.body && req.body.user && req.body.user._id)) {
+	if (!(req.user && req.user._id)) {
 		return res.send(new Response(false, "update fail|user is null"));
 	}
 	var id = req.params.id;
-	delete req.body.user._id;
-	var user = req.body.user;
+	delete req.user._id;
+	var user = req.user;
 	logger.info("updateUser id: %s", id);
 
 	// 更新用户数据库信息
 	var updateUser = function() {
-		UserDao.update({_id:id}, user, {}, function(e) {
+		console.log(user);
+		UserDao.update({_id: id}, user, {}, function(e) {
 			if (e) {
+				console.log(e);
 				return res.send(new Response(false, "update fail", e));
 			}
 			else {
@@ -76,7 +78,7 @@ exports.updateUserInfo = function(req, res) {
 
 	// 上传文件处理
 	var uploadAvatar = function() {
-		var file = req.files.uploadFile;
+		var file = req.files.file;
 		Util.uploadFile(file, function(success, e) {
 			if (success) {
 				// TODO:: 要先删除之前的头像
@@ -90,11 +92,11 @@ exports.updateUserInfo = function(req, res) {
 	};
 
 	// 保存数据
-	if (!(req.files && req.files.uploadFile))
-	{
+	if (!(req.files && req.files.file))
+	{	
 		Util.ensureAuthenticated(req, res, updateUser);
 	} else
-	{
+	{	
 		Util.ensureAuthenticated(req, res, uploadAvatar);
 	}
 

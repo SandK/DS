@@ -13,7 +13,13 @@ define(['modules/ds'], function(ds) {
 				method: "GET"
 			},
 			updateUser: {
-				method:'POST'
+				method: 'POST',
+				headers: {
+					"Content-Type": undefined
+				},
+				transformRequest: function(data, headersGetter) {
+					return data;
+				}
 			},
 			logout: {
 				method:'DELETE'
