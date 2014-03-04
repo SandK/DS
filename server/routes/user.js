@@ -59,8 +59,10 @@ exports.updateUserInfo = function(req, res) {
 	}
 	var id = req.params.id;
 	delete req.user._id;
-	var user = req.user;
-	logger.info("updateUser id: %s", id);
+	var user = {};
+	user.nickname = req.user.nickname;
+	user.age = req.user.age;
+	logger.info("updateUser id: %s, nickname: %s, age: %s", id, req.user.nickname, req.user.age);
 
 	// 更新用户数据库信息
 	var updateUser = function() {
