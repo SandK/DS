@@ -6,4 +6,4 @@ Actions speak louder than words!
 ------------------------------
 饮余马于咸池兮
 --------------
-项目地址 [http://gmart.herokuapp.com/](http://gmart.herokuapp.com/)
+Just Do Something
