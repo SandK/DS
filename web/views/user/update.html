@@ -18,10 +18,13 @@
       <h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
     </div>
     <div class="modal-body">
+      <div class="form-group">
+        <img id="avatarImg" ng-src="{{user.avatar}}">
+      </div>
       <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
           <i class="glyphicon glyphicon-plus"></i>
           <span>Add files...</span>
-          <input id="head" type="file" name="headImg" multiple ng-disabled="disabled">
+          <input id="avatarFile" type="file" name="headImg" multiple ng-disabled="disabled" onchange="angular.element(this).scope().fileChange()">
       </span>
       <div class="form-group">
         <label>昵称</label>

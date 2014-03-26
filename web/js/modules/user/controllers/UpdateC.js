@@ -13,18 +13,52 @@ define(['modules/ds'], function(ds) {
 
 		$scope.$on("showUpdateDialog", function(event, data) {
 			$scope.user = data.user;
+
 			$("#userUpdate").modal({
 				show: true
 			});
+
+			setTimeout(function() {
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', 'http://localhost:3000/resource/avatar.png', true);
+				xhr.responseType = 'arraybuffer';
+				var toAppend = document.getElementById("avatarImg");
+				xhr.onload = function(e) {
+					if (this.status == 200) {
+						var blob = new Blob([this.response], ["image/png"]);
+						var img = new Image();
+						img.src = window.URL.createObjectURL(blob);
+						img.onload = function() {
+							var c = document.createElement('canvas'); // Create canvas
+							c.width = 100;
+							c.height = 100;
+							var ctx = c.getContext('2d');
+							ctx.scale(c.width / img.width, c.height / img.height);
+							ctx.drawImage(img, 0, 0, img.width, img.height);
+							// $scope.avatar = c.toDataURL('image/png');
+							toAppend.src = c.toDataURL('image/png');
+							// document.body.appendChild(toAppend);
+						}
+					}
+				};
+
+				xhr.onerror = function(e) {
+				    alert("Error " + e.target.status + " occurred while receiving the document.");
+				};
+
+				xhr.send();	
+			}, 1000);
+			
+			
 		});
 
 		$scope.saveUser = function() {
 			var form = new FormData();
-			form.append("user", $scope.user);
 			form.append("file", document.getElementById("head").files[0]);
-
 			userService.updateUser({
-				userId: $scope.user._id
+				userId: $scope.user._id,
+				age: $scope.user.age,
+				nickname: $scope.user.nickname
 			}, form, function(res) {
 				if (res.success) {
 					$rootScope.$broadcast("getUser", {
@@ -38,7 +72,31 @@ define(['modules/ds'], function(ds) {
 			}, function() {
 				alert("save fail");
 			});
-		}
+		};
+
+		$scope.fileChange = function(evt) {
+		    var filereader = new FileReader();
+    
+			filereader.readAsDataURL(document.getElementById("avatarFile").files[0]);
+        
+		    filereader.onload = function(event) {
+		        var blob = new Blob([event.target.result]);
+		        var img = new Image();
+		        img.onload = function() {
+		        	var toAppend = document.getElementById("avatarImg");
+		            var c = document.createElement('canvas');
+			        c.width = 100;
+			        c.height = 100;
+			        var ctx = c.getContext('2d');
+			        ctx.scale(c.width / img.width, c.height / img.height);
+			        ctx.drawImage(img, 0, 0, img.width, img.height);
+			        toAppend.title = 'Imported via upload, drawn in a canvas';
+			        toAppend.src = c.toDataURL('image/png');
+		        }
+		        img.src = event.target.result;
+		        img.title = 'Imported via file upload';
+		    };
+		};
 
 		// var serviceUrl = "/user/updateUser/";
 		// $http.get('/login').success(function(data) {
