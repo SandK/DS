@@ -77,3 +77,9 @@ together最后的提交数为287, 超越!
 2014.02.26
 mongodb git环境配置完成
 DS可以正常运行
+---------------------------------------------
+
+2014.04.09
+TaskModel及对应的Dao,Test
+Mongoose Population
+http://mongoosejs.com/docs/populate.html
