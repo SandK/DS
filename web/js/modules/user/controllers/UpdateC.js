@@ -15,12 +15,13 @@ define([
 		});
 
 		$("#userUpdate").on("shown.bs.modal", function() {
-			var avatarUrl = $scope.user.avatar? config.SERVER_URL + "resource/test.jpg" : config.CLIENT_URL + "resource/avatar.png"; 
+			console.log($scope.user.avatar);
+			var avatarUrl = $scope.user.avatar? config.SERVER_URL + $scope.user.avatar : config.CLIENT_URL + "resource/avatar.png"; 
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', avatarUrl, true);
 			xhr.responseType = 'arraybuffer';
 			var toAppend = document.getElementById("avatarImg");
-			
+
 			xhr.onload = function(e) {
 				if (this.status == 200) {
 					var blob = new Blob([this.response], ["image/png"]);
