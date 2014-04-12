@@ -32,7 +32,7 @@ app.configure(function() {
 	app.use(passport.session());
 
 	app.use(app.router);
-	app.use(express.static(path.join(__dirname, '../web/')));
+	app.use(express.static(path.join(__dirname, '../')));
 
 	passport.use(new LocalStrategy(User.authenticate()));
 	passport.serializeUser(User.serializeUser());

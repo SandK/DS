@@ -1,5 +1,5 @@
 require.config({
-	baseUrl: '/js',
+	baseUrl: '/web/js',
 	paths: {
 		'jQuery': 'libs/jquery/jquery',
 		'angular': 'libs/angular/angular',
