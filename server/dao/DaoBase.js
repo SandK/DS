@@ -5,39 +5,42 @@ function DaoBase (Model){
 DaoBase.prototype.create = function (doc,callback){
     this.model.create(doc, function (error) {
         if(error) return callback(error);
-        return callback(doc);
+        
+        return callback(null);
     });
 };
 
 
 DaoBase.prototype.getById = function (id, callback) {
     this.model.findOne({_id:id}, function(error, model){
-        if(error) return callback(error,null);
-        return callback(null,model);
+        if(error) return callback(error, null);
+
+        return callback(null, model);
     });
 };
 
 
 DaoBase.prototype.countByQuery = function (query, callback) {
     this.model.count(query, function(error, model){
-        if(error) return callback(error,null);
-        return callback(null,model);
+        if(error) return callback(error, null);
+
+        return callback(null, model);
     });
 };
 
 
 DaoBase.prototype.getByQuery = function (query,fileds,opt,callback) {
-    this.model.find(query, fileds, opt, function(error,model){
-        if(error) return callback(error,null);
+    this.model.find(query, fileds, opt, function(error, model){
+        if(error) return callback(error, null);
 
-        return callback(null,model);
+        return callback(null, model);
     });
 };
 
 
 DaoBase.prototype.getAll = function (callback) {
-    this.model.find({}, function(error,model){
-        if(error) return callback(error,null);
+    this.model.find({}, function(error, model){
+        if(error) return callback(error, null);
 
         return callback(null, model);
     });
@@ -55,6 +58,7 @@ DaoBase.prototype.delete = function (query, callback){
 DaoBase.prototype.update = function( conditions, update ,options, callback) {
     this.model.update(conditions, update, options, function (error) {
         if(error) return callback(error);
+
         return callback(null);
     });
 };

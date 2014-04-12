@@ -1,5 +1,6 @@
 var fs = require('fs');
 var logger = require('./log').logger;
+var Response = require('../routes/Response');
 
 var Util = function () {
 	// 继承
@@ -22,6 +23,8 @@ var Util = function () {
 	var _ensureAuthenticated = function(req, res, next) {
 		if (req.isAuthenticated()) {
 			return next();
+		} else {
+			return res.send(new Response(false, -4));
 		}
 	};
 
@@ -52,10 +55,41 @@ var Util = function () {
 		callback(true, null);
 	};
 
+	// 对象是否合法
+	var _isValid = function(o) {
+		if (null == o || typeof(o) == 'undefined') {
+			return false;
+		}
+		return true;
+	}
+
+	// 对象是否为合法字符串
+	var _isValidString = function(s) {
+		if (_isValid(s)) {
+			if (typeof(s) == 'string' && s.trim() != "") {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// 对象是否为数字
+	var _isValidNumber = function(n) {
+		if (_isValid(s)) {
+			if (typeof(s) == 'number') {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	return {
 		extend: _extend,
 		ensureAuthenticated: _ensureAuthenticated,
-		uploadFile: _uploadFile
+		uploadFile: _uploadFile,
+		isValid: _isValid,
+		isValidString: _isValidString,
+		isValidNumber: _isValidNumber
 	}
 }();
 

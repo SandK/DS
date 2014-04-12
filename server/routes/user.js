@@ -1,16 +1,16 @@
 var passport = require('passport');
 var UserDao = require('../dao/UserDao');
-var logger = require('../utils/log').logger;
+var Logger = require('../utils/log').logger;
 var Util = require('../utils/Util');
 var Response = require('./Response');
-var config = require('../config');
+var Config = require('../config');
 
 // 注册
 exports.register = function(req, res) {
 
 	var username = req.body.username;
 	var password = req.body.password;
-	logger.info("register username: %s, password: %s", username, password);
+	Logger.info("register username: %s, password: %s", username, password);
 
 	UserDao.register(username, password, function(e, user) {
 		if (e) {
@@ -24,13 +24,13 @@ exports.register = function(req, res) {
 
 // 登录
 exports.login = function(req, res) {
-	logger.info("login");
+	Logger.info("login");
 	res.send(new Response(true, "login success"));
 };
 
 // 注销
 exports.logout = function(req, res) {
-	logger.info("logout");
+	Logger.info("logout");
 	req.logout();
 	res.send(new Response(true, "logout success"));
 }
@@ -50,11 +50,11 @@ exports.getUserInfo = function(req, res) {
 
 // 修改用户信息
 exports.updateUserInfo = function(req, res) {
-	if (!(req.params && req.params.id)) {
+	if (!(Util.isValid(req.params) && Util.isValid(req.params.id)) ) {
 		return res.send(new Response(false, "update fail|id is null"));
 	}
 
-	if (!(req.user && req.user._id)) {
+	if (!(Util.isValid(req.user) && Util.isValid(req.user._id)) ) {
 		return res.send(new Response(false, "update fail|user is null"));
 	}
 	var id = req.params.id;
@@ -62,7 +62,7 @@ exports.updateUserInfo = function(req, res) {
 	var user = {};
 	user.nickname = req.query.nickname;
 	user.age = req.query.age;
-	logger.info("updateUser id: %s, nickname: %s, age: %s", id, req.user.nickname, req.user.age);
+	Logger.info("updateUser id: %s, nickname: %s, age: %s", id, req.user.nickname, req.user.age);
 
 	// 更新用户数据库信息
 	var updateUser = function() {
@@ -83,7 +83,7 @@ exports.updateUserInfo = function(req, res) {
 		Util.uploadFile(file, function(success, e) {
 			if (success) {
 				// TODO:: 要先删除之前的头像
-				user.avatar = config.uploadPath + file.name;
+				user.avatar = Config.uploadPath + file.name;
 				// 更新用户数据库信息
 				updateUser();
 			} else {
@@ -95,10 +95,10 @@ exports.updateUserInfo = function(req, res) {
 	// 保存数据
 	if (!(req.files && req.files.file))
 	{	
-		Util.ensureAuthenticated(req, res, updateUser);
+		Util.ensureAuthenticated(req, res, updateUser)
 	} else
 	{	
-		Util.ensureAuthenticated(req, res, uploadAvatar);
+		Util.ensureAuthenticated(req, res, uploadAvatar)
 	}
 
 };
@@ -112,7 +112,7 @@ exports.uploadUserAvatar = function(req, res) {
 	Util.uploadFile(file, function(success, e) {
 		if (success) {
 			return res.send(new Response(true, "uploadFile success", {
-				filePath: config.uploadPath + file.name
+				filePath: Config.uploadPath + file.name
 			}));
 		} else {
 			return res.send(new Response(false, "uploadFile error"), e);

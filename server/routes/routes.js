@@ -12,4 +12,6 @@ module.exports = function(app) {
 	app.post('/uploadAvatar', user.uploadUserAvatar);
 
 	// 任务模块
+	app.post('/task', task.createTask);
+	
 };
