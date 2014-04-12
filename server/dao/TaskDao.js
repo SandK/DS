@@ -10,7 +10,8 @@ function TaskDao() {
 // 根据任务名称进行查找
 TaskDao.prototype.findByTaskName = function(_taskName, callback) {
 	Task.findOne({taskName: _taskName})
-	.populate('creator')
+	.populate('creator', 'nickname avatar')
+	.populate('acceptor', 'nickname avatar')
 	.exec(function(e, doc) {
 		callback(e, doc);
 	});

@@ -18,7 +18,11 @@ describe('Task', function(){
     			console.log(model[0]._id);
     			var task = new Task({
     				taskName: "TestTask",
-    				creator: model[0]._id
+    				creator: model[0]._id,
+                    description: "description1",
+                    contactWay: "999",
+                    reward: "1RMB",
+                    status: 1
     			});
     			TaskDao.create(task, function(o) {
     				console.log(o);
@@ -30,23 +34,6 @@ describe('Task', function(){
 
     // 测试查找
     describe('#find', function() {
-	    beforeEach(function(done){
-	        Task.remove();
-
-	        // insert
-    		UserDao.getByQuery({username:'kc'}, null, null, function(e, model) {
-    			console.log(model[0]._id);
-    			var task = new Task({
-    				taskName: "TestTask",
-    				creator: model[0]._id
-    			});
-    			TaskDao.create(task, function(o) {
-    				console.log(o);
-    			});
-    			done();
-    		});
-	    });
-
     	it('should success', function(done) {
     		TaskDao.findByTaskName('TestTask', function(e, doc) {
     			console.log(doc);
