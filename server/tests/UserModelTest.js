@@ -118,9 +118,9 @@ describe('User', function(){
 
         // 根据用户名查找成功
         it ("should success", function(done) {
-            UserDao.getByQueryPage({}, null, 1, 3, function(e, model) {
+            UserDao.getByQueryPage({}, "nickname", 1, 3, function(e, model) {
                 for (var i = 0; i < model.length; ++i) {
-                    console.log(model[i]._id);
+                    console.log(model[i]);
                 }
                 done();
             });

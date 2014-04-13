@@ -45,3 +45,48 @@ module.exports.createTask = function(req, res) {
 
 	Util.ensureAuthenticated(req, res, _createTask);
 }
+
+// 分页查找任务列表
+module.exports.findTaskByPage = function(req, res) {
+	var userOnly = false;
+	if (Util.isValid(req.params) && Util.isValidString(req.params.id))
+	{
+		userOnly = true;
+	}
+
+	if (!(Util.isValidNumber(req.body.pageNo) && req.body.pageNo > 0
+		&& Util.isValidNumber(req.body.pageSize) && req.body.pageSize > 0
+		&& Util.isValidNumber(req.body.startFrom) && req.body.startFrom >= 0
+		&& Util.isValidNumber(req.body.count) && req.body.count > 0
+		&& Util.isValidNumber(req.body.status)
+		&& Util.isValidNumber(req.body.type)
+		))
+	{
+		Logger.error("findTaskByPage|Param is error");
+		return res.send(new Response(false, -3));
+	}
+	var _query, _fields;
+	if (!userOnly) {
+		_query = {
+			status: req.body.status
+			, type: req.body.type
+		};
+	} else {
+		_query = {
+			creator: req.params.id
+			,status: req.body.status
+			, type: req.body.type
+		};
+	}
+
+	// TODO::之后根据前端所需的数据进行一部分筛选
+	_fields = null;
+
+	var startIndex = (req.body.pageNo - 1) * req.body.pageSize + req.body.startFrom;
+	TaskDao.findTaskByPage(_query, _fields, startIndex, req.body.count, function(e, doc) {
+		if (e) {
+			return res.send(new Response(false, -1, error));
+		}
+		return res.send(new Response(true, 0, doc));
+	});
+}
