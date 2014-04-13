@@ -57,7 +57,8 @@ module.exports.findTaskByPage = function(req, res) {
 	if (!(Util.isValidNumber(req.body.pageNo) && req.body.pageNo > 0
 		&& Util.isValidNumber(req.body.pageSize) && req.body.pageSize > 0
 		&& Util.isValidNumber(req.body.startFrom) && req.body.startFrom >= 0
-		&& Util.isValidNumber(req.body.count) && req.body.count > 0
+		&& Util.isValidNumber(req.body.count) && req.body.count > 0 
+		&& req.body.startFrom + req.body.count < req.body.pageSize
 		&& Util.isValidNumber(req.body.status)
 		&& Util.isValidNumber(req.body.type)
 		))
