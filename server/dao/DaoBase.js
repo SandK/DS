@@ -29,12 +29,22 @@ DaoBase.prototype.countByQuery = function (query, callback) {
 };
 
 
-DaoBase.prototype.getByQuery = function (query,fileds,opt,callback) {
-    this.model.find(query, fileds, opt, function(error, model){
+DaoBase.prototype.getByQuery = function (query, fields, opt, callback) {
+    this.model.find(query, fields, opt, function(error, model){
         if(error) return callback(error, null);
 
         return callback(null, model);
     });
+};
+
+
+DaoBase.prototype.getByQueryPage = function (query, fields, startFrom, count, callback) {
+    var opt = {
+        skip: startFrom
+        , limit: count
+    };
+    
+    this.getByQuery(query, fields, opt, callback);
 };
 
 

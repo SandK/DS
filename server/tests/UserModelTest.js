@@ -1,11 +1,8 @@
 var should = require('should');
-var User = require('../models/User2');
-var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost:27017/local');
+var UserDao = require('../dao/UserDao');
 
 describe('User', function(){
-
+/*
     // 测试注册功能
     describe('Register', function() {
         var _register;
@@ -113,5 +110,20 @@ describe('User', function(){
     // 测试修改功能
     describe('ModifyUserInfo', function() {
         // TODO::
+    });
+*/
+
+    // 测试分页功能
+    describe('QueryByPage', function() {
+
+        // 根据用户名查找成功
+        it ("should success", function(done) {
+            UserDao.getByQueryPage({}, null, 1, 3, function(e, model) {
+                for (var i = 0; i < model.length; ++i) {
+                    console.log(model[i]._id);
+                }
+                done();
+            });
+        });
     });
 });
