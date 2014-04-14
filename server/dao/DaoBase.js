@@ -73,4 +73,12 @@ DaoBase.prototype.update = function( conditions, update ,options, callback) {
     });
 };
 
+DaoBase.prototype.findOneAndUpdate = function(conditions, update, options, callback) {
+    this.model.findOneAndUpdate(conditions, update, options, function(error, doc) {
+        if (error) return callback(error, null);
+
+        return callback(null, doc);
+    });
+};
+
 module.exports = DaoBase;

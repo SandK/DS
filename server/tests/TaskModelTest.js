@@ -32,7 +32,7 @@ describe('Task', function(){
                     creator: model[0]._id,
                     description: "description2",
                     contactWay: "999",
-                    reward: "1RMB",
+                    reward: "2RMB",
                     status: 1
                 });
                 TaskDao.create(task1, function(o) {
@@ -61,6 +61,21 @@ describe('Task', function(){
             TaskDao.findTaskByPage(_query, null, 0, 1, function(e, doc) {
                 if (e) throw(e);
                 console.log(doc);
+                done();
+            });
+        });
+    });
+
+    // 测试查找并修改
+    describe('#Find And Modify', function() {
+        it('should success', function(done) {
+            TaskDao.findOneAndUpdate({reward: "3RMB"}, {status: 2}, [], function(e, doc) {
+                if (e) throw(e);
+                if (doc == null) {
+                    console.log("Not Found");
+                } else {
+                    console.log(doc);
+                }
                 done();
             });
         });

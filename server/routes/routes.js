@@ -13,5 +13,7 @@ module.exports = function(app) {
 
 	// 任务模块
 	app.post('/task', task.createTask);
+	app.get('/task/:id', task.findTaskByPage);
+	app.post('/task/:taskId', task.acceptTask);
 	
 };

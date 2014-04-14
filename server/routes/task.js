@@ -91,3 +91,24 @@ module.exports.findTaskByPage = function(req, res) {
 		return res.send(new Response(true, 0, doc));
 	});
 }
+
+// 接受任务c
+module.exports.acceptTask = function(req, res) {
+	var _acceptTask = function(req, res) {
+		if (!(Util.isValid(req.user) && Util.isValidString(req.user._id)) )
+		{
+			Logger.error("createTask|req.user is null");
+			return res.send(new Response(false, -2));
+		}
+
+		if (!(Util.isValid(req.params) && Util.isValidString(req.params.id)) )
+		{
+			Logger.error("createTask|req.user is null");
+			return res.send(new Response(false, -2));
+		}
+
+
+	};
+
+	Util.ensureAuthenticated(req, res, _acceptTask);
+}

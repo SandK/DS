@@ -21,6 +21,8 @@ TaskDao.prototype.findByTaskName = function(_taskName, callback) {
 
 // 分页显示任务列表
 TaskDao.prototype.findTaskByPage = function(query, fields, startIndex, count, callback) {
+    // TODO::如果大数据量的话应该尽量避免使用skip来做分页
+    // 可以用时间排序,用时间来做筛选条件达到跳过的目的
     var opt = {
         skip: startIndex
         , limit: count
