@@ -25,56 +25,22 @@
     </div>
 
     <!-- 主界面内容 !-->
-    <div class="container theme-showcase">
-      <div ui-view="mainPanel"></div>
+    <div class="container theme-showcase" ng-controller="TaskController">
+      <div ng-include="'views/task/task.html'"></div>
     </div>
 
-    <div class="container">
-      <div class="row row-offcanvas row-offcanvas-right">
-        <div class="col-xs-150 col-sm-150">
-          <div class="row">
-            <div class="col-6 col-sm-1 col-lg-4 task-item">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-6 col-sm-1 col-lg-4 task-item">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-1 col-sm-1 col-lg-4 task-item">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-1 col-sm-1 col-lg-4 task-item">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-1 col-sm-1 col-lg-4 task-item">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-1 col-sm-1 col-lg-4 task-item">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!--/.container-->
-
     <!-- 登陆注册弹出框 !-->
-    <div class="modal fade" id="userSign" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="SignController">
+    <div class="modal fade" id="userSign" tabindex="-1" role="dialog" ng-controller="SignController">
         <div ng-include="template.url"></div>
     </div>
 
     <!-- 修改用户信息弹出框 !-->
-    <div class="modal fade" id="userUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="UpdateController">
+    <div class="modal fade" id="userUpdate" tabindex="-1" role="dialog" ng-controller="UpdateController">
+        <div ng-include="template.url"></div>
+    </div>
+
+    <!-- 许愿弹出框 !-->
+    <div class="modal fade" id="wishing" tabindex="-1" role="dialog" ng-controller="WishController">
         <div ng-include="template.url"></div>
     </div>
 
