@@ -42,5 +42,9 @@ define(['modules/ds'], function(ds) {
 				console.log("logout fail");
 			});
 		}
+
+		$scope.wishing = function() {
+			$rootScope.$broadcast("showWishDialog");
+		}
 	});
 });

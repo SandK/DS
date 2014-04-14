@@ -15,7 +15,6 @@ define([
 		});
 
 		$("#userUpdate").on("shown.bs.modal", function() {
-			console.log($scope.user.avatar);
 			var avatarUrl = $scope.user.avatar? config.SERVER_URL + $scope.user.avatar : config.CLIENT_URL + "resource/avatar.png"; 
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', avatarUrl, true);

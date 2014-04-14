@@ -1,0 +1,18 @@
+<div id="loginDialog" class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="myModalLabel">许愿</h4>
+    </div>
+    <div class="modal-body">
+      <form class="form-signin" role="form">
+        <input ng-model="task.title" name="username" type="text" class="form-control" placeholder="任务标题" required autofocus>
+        <input ng-model="task.tip" name="username" type="text" class="form-control" placeholder="任务描述" required autofocus>
+        <input ng-model="task.reward" name="username" type="text" class="form-control" placeholder="任务报酬" required autofocus>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" ng-click="doLogin()">发起任务</button>
+    </div>
+  </div>
+</div>

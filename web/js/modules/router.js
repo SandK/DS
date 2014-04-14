@@ -2,6 +2,7 @@ define([
 	'modules/ds',
 	'modules/nav/controllers/NavC',
 	'modules/task/controllers/taskC',
+	'modules/task/controllers/wishC',
 	'modules/user/services/userS',
 	'modules/user/controllers/SignC',
 	'modules/user/controllers/UpdateC'
