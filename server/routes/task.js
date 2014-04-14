@@ -10,7 +10,7 @@ module.exports.createTask = function(req, res) {
 	{
 		if (!(Util.isValid(req.user) && Util.isValidString(req.user._id)) )
 		{
-			Logger.error("createTask|req.user is null");
+			Logger.error("createTask|-2|req.user is null");
 			return res.send(new Response(false, -2));
 		}
 
@@ -20,10 +20,10 @@ module.exports.createTask = function(req, res) {
 			&& Util.isValidString(req.body.reward)
 			))
 		{
-			Logger.error("createTask|Param is error");
+			Logger.error("createTask|-3|Param is error");
 			return res.send(new Response(false, -3));
 		}
-		Logger.info("createTask|req.user._id:%s|taskName:%s|desc:%s|contactWay:%s|reward:%s|"
+		Logger.trace("createTask|req.user._id:%s|taskName:%s|desc:%s|contactWay:%s|reward:%s|"
 			, req.user._id, req.body.taskName, req.body.desc, req.body.contactWay, req.body.reward);
 
 		var task = new Task({
@@ -35,10 +35,13 @@ module.exports.createTask = function(req, res) {
 	        status: 1 // 状态设为未领取
 		});
 
-		TaskDao.create(task, function(error) {
-			if (error) {
-				return res.send(new Response(false, -1, error));
+		TaskDao.create(task, function(e) {
+			if (e) {
+				Logger.error("createTask|-1|%s", e.message);
+				return res.send(new Response(false, -1, e));
 			}
+			Logger.info("createTask|0|%s|%s|%s|%s|%s|"
+				, req.user._id, req.body.taskName, req.body.desc, req.body.contactWay, req.body.reward);
 			return res.send(new Response(true, 0));
 		});
 	};
@@ -63,7 +66,7 @@ module.exports.findTaskByPage = function(req, res) {
 		&& Util.isValidNumber(req.body.type)
 		))
 	{
-		Logger.error("findTaskByPage|Param is error");
+		Logger.error("findTaskByPage|-3|Param is error");
 		return res.send(new Response(false, -3));
 	}
 	var _query, _fields;
@@ -86,28 +89,52 @@ module.exports.findTaskByPage = function(req, res) {
 	var startIndex = (req.body.pageNo - 1) * req.body.pageSize + req.body.startFrom;
 	TaskDao.findTaskByPage(_query, _fields, startIndex, req.body.count, function(e, doc) {
 		if (e) {
+			Logger.error("findTaskByPage|-1|%s", e.message);
 			return res.send(new Response(false, -1, error));
 		}
 		return res.send(new Response(true, 0, doc));
 	});
 }
 
-// 接受任务c
+// 接受任务
 module.exports.acceptTask = function(req, res) {
 	var _acceptTask = function(req, res) {
 		if (!(Util.isValid(req.user) && Util.isValidString(req.user._id)) )
 		{
-			Logger.error("createTask|req.user is null");
+			Logger.error("acceptTask|-2|req.user is null");
 			return res.send(new Response(false, -2));
 		}
 
-		if (!(Util.isValid(req.params) && Util.isValidString(req.params.id)) )
+		if (!(Util.isValid(req.params) && Util.isValidString(req.params.taskId)) )
 		{
-			Logger.error("createTask|req.user is null");
-			return res.send(new Response(false, -2));
+			Logger.error("acceptTask|-3|TaskId is null");
+			return res.send(new Response(false, -3));
 		}
 
+		Logger.trace("acceptTask|AcceptorId:%s|TaskId:%s", req.user._id, req.params.taskId);
 
+		var _conditions = {
+			_id: req.params.taskId
+			, status: 1
+		};
+
+		var _update = {
+			status: 2
+			, acceptor: [req.user._id]
+		};
+		TaskDao.findOneAndUpdate(_conditions, _update, [], function(e, doc) {
+            if (e) {
+				Logger.error("acceptTask|-1|%s", e.message);
+            	return res.send(new Response(false, -1, error));
+            }
+            if (doc == null) {
+                Logger.info("acceptTask|20031|Task can not be accepted|%s|%s", req.user._id, req.params.taskId);
+				return res.send(new Response(false, 20031));
+            } else {
+                Logger.info("acceptTask|0|%s|%s", req.user._id, req.params.taskId);
+				return res.send(new Response(true, 0));
+            }
+        });
 	};
 
 	Util.ensureAuthenticated(req, res, _acceptTask);

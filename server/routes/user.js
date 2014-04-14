@@ -10,39 +10,41 @@ exports.register = function(req, res) {
 
 	var username = req.body.username;
 	var password = req.body.password;
-	Logger.info("register username: %s, password: %s", username, password);
+	Logger.trace("register|register username: %s, password: %s", username, password);
 
 	UserDao.register(username, password, function(e, user) {
 		if (e) {
-			return res.send(new Response(false, "regiest fail", e));
+			Logger.error("register|-1|regist fail|%s", e.message);
+			return res.send(new Response(false, -1, e));
 		}
 		else {
-			return res.send(new Response(true, "regiest success"));
+			Logger.info("register|0|%s|%s", username, password);
+			return res.send(new Response(true, 0));
 		}
 	});
 };
 
 // 登录
 exports.login = function(req, res) {
-	Logger.info("login");
-	res.send(new Response(true, "login success"));
+	Logger.trace("login");
+	res.send(new Response(true, 0));
 };
 
 // 注销
 exports.logout = function(req, res) {
-	Logger.info("logout");
+	Logger.trace("logout");
 	req.logout();
-	res.send(new Response(true, "logout success"));
+	res.send(new Response(true, 0));
 }
 
 // 获取用户信息
 exports.getUserInfo = function(req, res) {
 	if (req.user) {
-		res.send(new Response(true, "get user success", {
+		res.send(new Response(true, 0, {
 			user: req.user
 		}));
 	} else {
-		res.send(new Response(false, "get user fail", {
+		res.send(new Response(false, -2, {
 			user: null
 		}));
 	}
@@ -51,28 +53,29 @@ exports.getUserInfo = function(req, res) {
 // 修改用户信息
 exports.updateUserInfo = function(req, res) {
 	if (!(Util.isValid(req.params) && Util.isValid(req.params.id)) ) {
-		return res.send(new Response(false, "update fail|id is null"));
+		return res.send(new Response(false, 10051));
 	}
 
 	if (!(Util.isValid(req.user) && Util.isValid(req.user._id)) ) {
-		return res.send(new Response(false, "update fail|user is null"));
+		return res.send(new Response(false, -2));
 	}
 	var id = req.params.id;
 	delete req.user._id;
 	var user = {};
 	user.nickname = req.query.nickname;
 	user.age = req.query.age;
-	Logger.info("updateUser id: %s, nickname: %s, age: %s", id, req.user.nickname, req.user.age);
+	Logger.trace("updateUser id: %s, nickname: %s, age: %s", id, req.user.nickname, req.user.age);
 
 	// 更新用户数据库信息
 	var updateUser = function() {
 		UserDao.update({_id: id}, user, {}, function(e) {
 			if (e) {
-				console.log(e);
-				return res.send(new Response(false, "update fail", e));
+				Logger.error("updateUserInfo|10054|updateUser error|%s", e.message);
+				return res.send(new Response(false, 10054, e));
 			}
 			else {
-				return res.send(new Response(true, "update success"));
+				Logger.info("updateUser|0|id: %s, nickname: %s, age: %s", id, req.user.nickname, req.user.age);
+				return res.send(new Response(true, 0));
 			}
 		});
 	};
@@ -87,7 +90,8 @@ exports.updateUserInfo = function(req, res) {
 				// 更新用户数据库信息
 				updateUser();
 			} else {
-				return res.send(new Response(false, "uploadFile error"), e);
+				Logger.error("updateUserInfo|10053|uploadAvatar error|%s", e.message);
+				return res.send(new Response(false, 10053), e);
 			}
 		});
 	};
@@ -102,20 +106,3 @@ exports.updateUserInfo = function(req, res) {
 	}
 
 };
-
-// 上传用户头像
-exports.uploadUserAvatar = function(req, res) {
-	if (!(req.files && req.files.uploadFile)) {
-		return res.send(new Response(false, "uploadFile fail|file is null"));
-	}
-	var file = req.files.uploadFile;
-	Util.uploadFile(file, function(success, e) {
-		if (success) {
-			return res.send(new Response(true, "uploadFile success", {
-				filePath: Config.uploadPath + file.name
-			}));
-		} else {
-			return res.send(new Response(false, "uploadFile error"), e);
-		}
-	});
-}

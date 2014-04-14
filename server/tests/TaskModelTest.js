@@ -69,7 +69,7 @@ describe('Task', function(){
     // 测试查找并修改
     describe('#Find And Modify', function() {
         it('should success', function(done) {
-            TaskDao.findOneAndUpdate({reward: "3RMB"}, {status: 2}, [], function(e, doc) {
+            TaskDao.findOneAndUpdate({reward: "2RMB", status: 1}, {status: 2}, [], function(e, doc) {
                 if (e) throw(e);
                 if (doc == null) {
                     console.log("Not Found");

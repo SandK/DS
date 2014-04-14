@@ -57,7 +57,7 @@ var Util = function () {
 
 	// 对象是否合法
 	var _isValid = function(o) {
-		if (null == o || typeof(o) == 'undefined') {
+		if (!o || null == o || typeof(o) == 'undefined') {
 			return false;
 		}
 		return true;
