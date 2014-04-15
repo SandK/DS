@@ -1,4 +1,26 @@
 .task-item {
-	border: black solid 2px;
 	margin: 10px;
+	/*width: 30%;*/
+	/*position: relative;*/
+	min-height: 1px;
+	padding-right: 15px;
+	padding-left: 15px;
+	-webkit-box-shadow: 3px 3px 6px #666;  
+    -moz-box-shadow: 3px 3px 6px #666;  
+    box-shadow: 3px 3px 6px #666;  
+}
+
+.column {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	width: 30%;
+}
+
+.left-float {
+	float: left;
+}
+
+.right-float {
+	float: right;
 }
