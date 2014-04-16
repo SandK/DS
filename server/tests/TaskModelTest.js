@@ -52,6 +52,12 @@ describe('Task', function(){
     		});
     	});
 
+        it('by count should success', function(done) {
+            TaskDao.countByQuery({taskName: 'TestTask'}, function(e, doc) {
+                console.log(doc);
+                done();
+            });
+        });
 
         it('byPage should success', function(done) {
             var _query = {

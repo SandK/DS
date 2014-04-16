@@ -16,5 +16,5 @@ module.exports = function(app) {
 	app.post('/task', task.createTask);
 	app.get('/task/:id', task.findTaskByPage);
 	app.post('/task/:taskId', task.acceptTask);
-	
+	app.put('/task/:taskId', task.completeTask);
 };
