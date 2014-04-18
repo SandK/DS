@@ -7,7 +7,8 @@ var Response = require('./Response');
 module.exports.createTask = function(req, res) {
 
 	var _createTask = function(req, res)
-	{
+	{	
+
 		if (!(Util.isValid(req.user) && Util.isValidString(req.user._id)) )
 		{
 			Logger.error("createTask|-2|req.user is null");

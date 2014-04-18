@@ -1,10 +1,9 @@
 .task-item {
 	margin: 10px;
-	/*width: 30%;*/
-	/*position: relative;*/
 	min-height: 1px;
 	padding-right: 15px;
 	padding-left: 15px;
+	padding-bottom: 15px;
 	-webkit-box-shadow: 3px 3px 6px #666;  
     -moz-box-shadow: 3px 3px 6px #666;  
     box-shadow: 3px 3px 6px #666;  
@@ -17,10 +16,19 @@
 	width: 30%;
 }
 
-.left-float {
-	float: left;
+.load-button {
+	margin: 10px;
+	min-height: 1px;
+	padding: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 3px 3px 6px #666;  
+    -moz-box-shadow: 3px 3px 6px #666;  
+    box-shadow: 3px 3px 6px #666;
+    width: 100%;
 }
 
-.right-float {
-	float: right;
+.task-desc {
+	margin-bottom: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 }

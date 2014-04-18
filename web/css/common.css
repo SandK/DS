@@ -1,0 +1,15 @@
+.left-float {
+  float: left;
+}
+
+.right-float {
+  float: right;
+}
+
+.visible {
+  display: block;
+}
+
+.dis-visible {
+  display: none;
+}

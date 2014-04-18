@@ -1,4 +1,4 @@
-<div id="loginDialog" class="modal-dialog">
+<div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -6,13 +6,14 @@
     </div>
     <div class="modal-body">
       <form class="form-signin" role="form">
-        <input ng-model="task.title" name="username" type="text" class="form-control" placeholder="任务标题" required autofocus>
-        <input ng-model="task.tip" name="username" type="text" class="form-control" placeholder="任务描述" required autofocus>
-        <input ng-model="task.reward" name="username" type="text" class="form-control" placeholder="任务报酬" required autofocus>
+        <input ng-model="task.title" type="text" class="form-control" placeholder="任务标题" required autofocus>
+        <textarea ng-model="task.desc" class="form-control task-desc" rows="3" placeholder="任务描述" required></textarea>
+        <input ng-model="task.contact" type="text" class="form-control" placeholder="联系方式" required >
+        <input ng-model="task.reward" type="text" class="form-control" placeholder="任务报酬" required >
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" ng-click="doLogin()">发起任务</button>
+      <button type="button" class="btn btn-primary" ng-click="doWish()">许愿</button>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 define(['modules/ds'], function(ds) {
-	ds.controller('WishController', function ($scope, $http) {
+	ds.controller('WishController', function ($scope, $http, taskService) {
 		$scope.templates = [{ 
 			name: 'wish.html',
 			url: 'views/task/wish.html'
@@ -16,8 +16,39 @@ define(['modules/ds'], function(ds) {
 			});
 	  	});
 
+	  	$scope.doWish = function() {
+	  		taskService.wish({}, {
+				taskName: $scope.task.title, 
+				desc: $scope.task.desc,
+				contactWay: $scope.task.contact,
+				reward: $scope.task.reward
+			}, function(res) {
+				console.log(res);
+				// if (res.success) {
+				// 	$rootScope.$broadcast("getUser", {
+				// 		callback: function() {
+				// 			$("#userSign").modal('hide');
+				// 		}
+				// 	});
+				// } else {
+				// 	console.log("login error: " + res.msg);
+				// }
+			}, function(err) {
+				console.log(err);
+				// $("#userSign").modal('hide');
+				// console.log("login fail");
+			});
+	  	}
+
 	  	var reset = function() {
-			
+			$scope.task = {
+				"title": "",
+				"desc": "",
+				"contact": "",
+				"reward": ""
+			}
 		}
+
+	  	reset();
 	});
 });

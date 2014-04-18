@@ -54,7 +54,7 @@ define([
 
 		$scope.saveUser = function() {
 			var form = new FormData();
-			form.append("file", document.getElementById("head").files[0]);
+			form.append("file", document.getElementById("avatarFile").files[0]);
 			userService.updateUser({
 				userId: $scope.user._id,
 				age: $scope.user.age,

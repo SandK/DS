@@ -1,32 +1,13 @@
 <div class="container">
   <div>
-      <span class="column" ng-repeat="task in tasklist">
-        <div class="task-item" ng-repeat="item in task">
-          <h2>{{item.title}}</h2>
-          <p>{{item.tip}}</p>
-          <p>{{item.reward}}</p>
-          <p><a class="btn btn-default" href="#" role="button">领取任务</a></p>
-        </div>
-      </span>
-    <!-- <div class="col-1 col-sm-1 col-lg-4 task-item">
-      <h2>Heading</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-    </div> -->
-    <!-- <div class="col-1 col-sm-1 col-lg-4 task-item">
-      <h2>Heading</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-    </div>
-    <div class="col-1 col-sm-1 col-lg-4 task-item">
-      <h2>Heading</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-    </div>
-    <div class="col-1 col-sm-1 col-lg-4 task-item">
-      <h2>Heading</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-    </div> -->
+    <span class="column" ng-repeat="task in tasklist">
+      <div class="task-item" ng-repeat="item in task">
+        <h2 ng-bind="item.title"></h2>
+        <p ng-bind="item.tip"></p>
+        <p ng-bind="item.reward"></p>
+        <p><a class="btn btn-default" href="#" role="button">领取任务</a></p>
+      </div>
+    </span>
+    <input type="button" value="加载更多" class="load-button {{visible}}" ng-click="loadData();"></input>
   </div>
-</div><!--/.container-->
+</div>

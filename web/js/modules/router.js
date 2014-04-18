@@ -1,6 +1,8 @@
 define([
 	'modules/ds',
-	'modules/nav/controllers/NavC',
+	'modules/components/controllers/loadingC',
+	'modules/nav/controllers/navC',
+	'modules/task/services/taskS',
 	'modules/task/controllers/taskC',
 	'modules/task/controllers/wishC',
 	'modules/user/services/userS',
@@ -13,10 +15,10 @@ define([
 			.state('index', {
 				url: "",
 				views: {
-					"mainPanel": {
-						templateUrl: 'views/task/task.html',
-						controller: 'TaskController'
-					}
+					// "mainPanel": {
+					// 	templateUrl: 'views/task/task.html',
+					// 	controller: 'TaskController'
+					// }
 				}
 			})
 	});

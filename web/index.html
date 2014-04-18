@@ -11,7 +11,9 @@
     <link href="./js/libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="./js/libs/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-	  
+	
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/loading.css" rel="stylesheet">
     <link href="css/theme.css" rel="stylesheet">
     <link href="css/form.css" rel="stylesheet">
     <link href="css/task.css" rel="stylesheet">
@@ -42,6 +44,11 @@
     <!-- 许愿弹出框 !-->
     <div class="modal fade" id="wishing" tabindex="-1" role="dialog" ng-controller="WishController">
         <div ng-include="template.url"></div>
+    </div>
+
+    <!-- loading 层 !-->
+    <div id="loading" role="dialog" ng-controller="LoadingController" class="dis-visible">
+        <div ng-include="'views/components/loading.html'" class="loading-bg"></div>
     </div>
 
     <script type="text/javascript" data-main="js/main" src="js/libs/requirejs/require.js"></script>
