@@ -22,7 +22,7 @@ var Util = function () {
 	// 权限验证
 	var _ensureAuthenticated = function(req, res, next) {
 		if (req.isAuthenticated()) {
-			return next();
+			return next(req, res);
 		} else {
 			return res.send(new Response(false, -4));
 		}
