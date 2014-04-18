@@ -1,5 +1,5 @@
 define(['modules/ds'], function(ds) {
-	ds.controller('WishController', function ($scope, $http, taskService) {
+	ds.controller('WishController', function ($scope, $http, taskService, userService) {
 		$scope.templates = [{ 
 			name: 'wish.html',
 			url: 'views/task/wish.html'
@@ -17,7 +17,9 @@ define(['modules/ds'], function(ds) {
 	  	});
 
 	  	$scope.doWish = function() {
-	  		taskService.wish({}, {
+	  		taskService.wish({
+	  			user: userService.getUser()
+	  		}, {
 				taskName: $scope.task.title, 
 				desc: $scope.task.desc,
 				contactWay: $scope.task.contact,

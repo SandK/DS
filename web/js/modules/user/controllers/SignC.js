@@ -28,12 +28,12 @@ define(['modules/ds'], function(ds) {
 		}
 
 		$scope.doLogin = function() {
-			userService.login({}, {
+			userService.resource.login({}, {
 				username: $scope.login.username, 
 				password: $scope.login.password,
 			}, function(res) {
 				if (res.success) {
-					$rootScope.$broadcast("getUser", {
+					$rootScope.$broadcast("getServerUser", {
 						callback: function() {
 							$("#userSign").modal('hide');
 						}
@@ -52,7 +52,7 @@ define(['modules/ds'], function(ds) {
 				alert("2次密码输入不一致");
 				return ;
 			}
-			userService.regiest({}, {
+			userService.resource.regiest({}, {
 				username: $scope.regiest.username, 
 				password: $scope.regiest.password,
 			}, function(res) {
@@ -67,12 +67,12 @@ define(['modules/ds'], function(ds) {
 		}
 
 		var doRegiestSuccess = function(username, password) {
-			userService.login({}, {
+			userService.resource.login({}, {
 				username: username, 
 				password: password,
 			}, function(res) {
 				if (res.success) {
-					$rootScope.$broadcast("getUser", {
+					$rootScope.$broadcast("getServerUser", {
 						callback: function() {
 							$("#userSign").modal('hide');
 						}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> DS DEV</title>
+    <script type="text/javascript" data-main="js/main" src="js/libs/requirejs/require.js"></script>
+  </head>
+  <body>
+    <div ng-controller="NavController" style="float: left; margin: 10px"></div>
+    <!-- 注册 !-->
+    <div ng-controller="SignController" style="float: left; margin: 10px">
+        <span>注册</span>
+        <form>
+            <input ng-model="regiest.username" type="text" placeholder="用户名"><br />
+            <input ng-model="regiest.password" type="password" placeholder="密码"><br />
+            <input ng-model="regiest.passwordAg" type="password" placeholder="再次输入密码"><br />
+            <button type="button" ng-click="doRegiest()">注册</button>
+        </form>
+    </div>
+    <!-- 登陆 !-->
+    <div ng-controller="SignController" style="float: left; margin: 10px">
+        <span>登陆</span>
+        <form>
+           <input ng-model="login.username" name="username" type="text" placeholder="用户名"><br />
+            <input ng-model="login.password" name="password" type="password" placeholder="密码"><br />
+            <label class="checkbox">
+              <input type="checkbox" value="remember-me"> 记住密码
+            </label><br />
+            <button type="button" ng-click="doLogin()">登陆</button>
+        </form>
+    </div>
+    <!-- 更新 !-->
+    <div ng-controller="UpdateController" style="float: left; margin: 10px">
+        <span>更新用户信息</span>
+        <form>
+            <div class="form-group">
+                <img id="avatarImg">
+            </div>
+           <input id="avatarFile" type="file" name="headImg" multiple ng-disabled="disabled" onchange="angular.element(this).scope().fileChange()"> <br />
+            <input ng-model="user.nickname" name="username" type="text" placeholder="用户名" required autofocus> <br />
+            <input ng-model="user.age" stype="text" name="age" placeholder="年龄"> <br />
+            <button type="button" ng-click="doLogin()">更新</button>
+        </form>
+    </div>
+    <!-- 许愿测试 !-->
+    <div ng-controller="WishController" style="float: left; margin: 10px">
+        <span>许愿</span>
+        <form>
+            <input ng-model="task.title" type="text" placeholder="任务标题"></input><br />
+            <textarea ng-model="task.desc" rows="3" placeholder="任务描述"></textarea><br />
+            <input ng-model="task.contact" type="text" placeholder="联系方式"><br />
+            <input ng-model="task.reward" type="text" placeholder="任务报酬"><br />
+            <button type="button" ng-click="doWish()">许愿</button>
+        </form>
+    </div>
+  </body>
+</html>

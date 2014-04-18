@@ -55,13 +55,13 @@ define([
 		$scope.saveUser = function() {
 			var form = new FormData();
 			form.append("file", document.getElementById("avatarFile").files[0]);
-			userService.updateUser({
+			userService.resource.updateUser({
 				userId: $scope.user._id,
 				age: $scope.user.age,
 				nickname: $scope.user.nickname
 			}, form, function(res) {
 				if (res.success) {
-					$rootScope.$broadcast("getUser", {
+					$rootScope.$broadcast("getServerUser", {
 						callback: function() {
 							$("#userUpdate").modal('hide');
 						}

@@ -1,30 +1,42 @@
 define(['modules/ds'], function(ds) {
 	ds.factory('userService', function ($http, $resource) {
-		return $resource("/user/:userId", {
-			userId: ''
-		}, {
-			regiest: {
-				method:'PUT'
-			},
-			login: {
-				method: 'POST'
-			},
-			getUser: {
-				method: "GET"
-			},
-			updateUser: {
-				method: 'POST',
-				headers: {
-					"Content-Type": undefined
+		return {
+			user: null,
+
+			resource: $resource("/user/:userId", {
+				userId: ''
+			}, {
+				regiest: {
+					method:'PUT'
 				},
-				transformRequest: function(data, headersGetter) {
-					return data;
+				login: {
+					method: 'POST'
+				},
+				getUser: {
+					method: "GET"
+				},
+				updateUser: {
+					method: 'POST',
+					headers: {
+						"Content-Type": undefined
+					},
+					transformRequest: function(data, headersGetter) {
+						return data;
+					}
+				},
+				logout: {
+					method:'DELETE'
 				}
+			}),
+
+			getUser: function() {
+				return this.user;
 			},
-			logout: {
-				method:'DELETE'
-			}
-		});
+
+			setUser: function(user) {
+				this.user = user;
+			} 
+		}
 
 	// 	return {
 	// 		regiest: function(params) {
