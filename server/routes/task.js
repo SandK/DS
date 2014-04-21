@@ -189,3 +189,26 @@ module.exports.completeTask = function(req, res) {
 
 	Util.ensureAuthenticated(req, res, _acceptTask);
 };
+
+// 显示单个任务
+module.exports.showOneTaskDetail = function(req, res) {
+
+	if (!(Util.isValid(req.params) && Util.isValidString(req.params.taskId)))
+	{
+		Logger.error("showOneTaskDetail|-3|TaskId is null");
+		return res.send(new Response(false, -3));
+	}
+
+	TaskDao.getById(req.params.taskId, function(e, doc) {
+		if (e) {
+			Logger.error("showOneTaskDetail|-1|%s", e.message);
+        	return res.send(new Response(false, -1, e));
+        }
+        if (null == doc) {
+        	Logger.info("showOneTaskDetail|20051|%s", taskId);
+        	return res.send(new Response(false, 20051));
+        }
+    	//Logger.info("showOneTaskDetail|0|%s", taskId);
+    	return res.send(new Response(true, 0, doc));
+	});
+};
