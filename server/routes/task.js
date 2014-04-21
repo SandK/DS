@@ -1,4 +1,5 @@
 var TaskDao = require('../dao/TaskDao');
+var Task = require('./../model/').Task;
 var Logger = require('../utils/log').logger;
 var Util = require('../utils/Util');
 var Response = require('./Response');
@@ -9,7 +10,7 @@ module.exports.createTask = function(req, res) {
 	var _createTask = function(req, res)
 	{	
 
-		if (!(Util.isValid(req.user) && Util.isValidString(req.user._id)) )
+		if (!(Util.isValid(req.user) && Util.isValid(req.user._id)) )
 		{
 			Logger.error("createTask|-2|req.user is null");
 			return res.send(new Response(false, -2));
@@ -100,7 +101,7 @@ module.exports.findTaskByPage = function(req, res) {
 // 接受任务
 module.exports.acceptTask = function(req, res) {
 	var _acceptTask = function(req, res) {
-		if (!(Util.isValid(req.user) && Util.isValidString(req.user._id)) )
+		if (!(Util.isValid(req.user) && Util.isValid(req.user._id)) )
 		{
 			Logger.error("acceptTask|-2|req.user is null");
 			return res.send(new Response(false, -2));
@@ -145,7 +146,7 @@ module.exports.acceptTask = function(req, res) {
 module.exports.completeTask = function(req, res) {
 
 	var _completeTask = function(req, res) {
-		if (!(Util.isValid(req.user) && Util.isValidString(req.user._id)) )
+		if (!(Util.isValid(req.user) && Util.isValid(req.user._id)) )
 		{
 			Logger.error("completeTask|-2|req.user is null");
 			return res.send(new Response(false, -2));
