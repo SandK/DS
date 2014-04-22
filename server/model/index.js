@@ -8,7 +8,7 @@ mongoose.connect(config.connectionstring);
 var db = mongoose.connection;
 db.on('error', function(err){
     logger.trace('connect to %s error: ', config.connectionstring, err.message);
-    process.exit(1);
+    //process.exit(1);
 });
 db.once('open', function () {
     logger.trace('%s has been connected.', config.connectionstring);

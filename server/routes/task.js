@@ -58,37 +58,44 @@ module.exports.findTaskByPage = function(req, res) {
 	{
 		userOnly = true;
 	}
-	// if (!(Util.isValidNumber(req.query.pageNo) && req.query.pageNo > 0
-	// 	&& Util.isValidNumber(req.query.pageSize) && req.query.pageSize > 0
-	// 	&& Util.isValidNumber(req.query.startFrom) && req.query.startFrom >= 0
-	// 	&& Util.isValidNumber(req.query.count) && req.query.count > 0 
-	// 	&& req.query.startFrom + req.query.count < req.query.pageSize
-	// 	&& Util.isValidNumber(req.query.status)
-	// 	&& Util.isValidNumber(req.query.type)
-	// 	))
-	// {
-	// 	Logger.error("findTaskByPage|-3|Param is error");
-	// 	return res.send(new Response(false, -3));
-	// }
+	var _pageNo, _pageSize, _startFrom, _count, _status, _type; 
+	if (!(Util.isValidNumber(req.query.pageNo) && Number(req.query.pageNo) > 0
+		&& Util.isValidNumber(req.query.pageSize) && Number(req.query.pageSize) > 0
+		&& Util.isValidNumber(req.query.startFrom) && Number(req.query.startFrom) >= 0
+		&& Util.isValidNumber(req.query.count) && Number(req.query.count) > 0 
+		&& Number(req.query.startFrom) + Number(req.query.count) < Number(req.query.pageSize)
+		&& Util.isValidNumber(req.query.status)
+		&& Util.isValidNumber(req.query.type)
+		))
+	{
+		Logger.error("findTaskByPage|-3|Param is error");
+		return res.send(new Response(false, -3));
+	}
+	_pageNo = Number(req.query.pageNo);
+	_pageSize = Number(req.query.pageSize);
+	_startFrom = Number(req.query.startFrom);
+	_count = Number(req.query.count);
+	_status = Number(req.query.status);
+	_type = Number(req.query.type);
 	var _query, _fields;
 	if (!userOnly) {
 		_query = {
-			status: req.query.status
-			, type: req.query.type
+			status: _status
+			, type: _type
 		};
 	} else {
 		_query = {
 			creator: req.params.id
-			,status: req.query.status
-			, type: req.query.type
+			,status: _status
+			, type: _type
 		};
 	}
 
 	// TODO::之后根据前端所需的数据进行一部分筛选
 	_fields = null;
 
-	var startIndex = (req.query.pageNo - 1) * req.query.pageSize + req.query.startFrom;
-	TaskDao.findTaskByPage(_query, _fields, startIndex, req.query.count, function(e, doc) {
+	var startIndex = (_pageNo - 1) * _pageSize + _startFrom;
+	TaskDao.findTaskByPage(_query, _fields, startIndex, _count, function(e, doc) {
 		if (e) {
 			Logger.error("findTaskByPage|-1|%s", e.message);
 			return res.send(new Response(false, -1, e));
@@ -106,11 +113,11 @@ module.exports.acceptTask = function(req, res) {
 			return res.send(new Response(false, -2));
 		}
 
-		// if (!(Util.isValid(req.params) && Util.isValidString(req.params.taskId)) )
-		// {
-		// 	Logger.error("acceptTask|-3|TaskId is null");
-		// 	return res.send(new Response(false, -3));
-		// }
+		if (!(Util.isValid(req.params) && Util.isValidString(req.params.taskId)) )
+		{
+			Logger.error("acceptTask|-3|TaskId is null");
+			return res.send(new Response(false, -3));
+		}
 
 		Logger.trace("acceptTask|AcceptorId:%s|TaskId:%s", req.user._id, req.params.taskId);
 

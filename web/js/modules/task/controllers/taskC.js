@@ -18,7 +18,7 @@ define(['modules/ds'], function(ds) {
 				pageSize: 999999999999999999,
 				startFrom: 0,
 				count: 20,
-				status: 3,
+				status: 1,
 				type: 0 
 			}, function(res) {
 				if (res.success) {

@@ -76,7 +76,7 @@ var Util = function () {
 	// 对象是否为数字
 	var _isValidNumber = function(n) {
 		if (_isValid(n)) {
-			if (typeof(n) == 'number') {
+			if (typeof(n) == 'number' || !isNaN(Number(n))) {
 				return true;
 			}
 		}
