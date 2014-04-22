@@ -106,11 +106,11 @@ module.exports.acceptTask = function(req, res) {
 			return res.send(new Response(false, -2));
 		}
 
-		if (!(Util.isValid(req.params) && Util.isValidString(req.params.taskId)) )
-		{
-			Logger.error("acceptTask|-3|TaskId is null");
-			return res.send(new Response(false, -3));
-		}
+		// if (!(Util.isValid(req.params) && Util.isValidString(req.params.taskId)) )
+		// {
+		// 	Logger.error("acceptTask|-3|TaskId is null");
+		// 	return res.send(new Response(false, -3));
+		// }
 
 		Logger.trace("acceptTask|AcceptorId:%s|TaskId:%s", req.user._id, req.params.taskId);
 

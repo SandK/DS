@@ -8,40 +8,47 @@ define(['modules/ds'], function(ds) {
 	  		$scope.loadData();
 	  	});
 
-		var tip = [
-			" onec id Donec id Donec id Donec id Donec id Donec id Donec id Donec id Donec id Donec id Donec id Donec id Donec id Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. ",
-			"onec id Donec id Donec id Donec id Don",
-			"onec id Donec id Donec id Donec id Dononec id Donec id Donec id Donec id Dononec id Donec id Donec id Donec id Dononec id Donec id Donec id Donec id Dononec id Donec id Donec id Donec id Don"
-		]
-
-		for (var i = 0; i < 12; ++i) {
-			$scope.tasklist.push({
-				title: "title",
-				tip: tip[Math.floor(Math.random() * 3)],
-				reward: "dasdasdasd"
-			});
-		}
-
 		$scope.loadData = function() {
 			$scope.visible = "dis-visible";
 			$rootScope.$broadcast("showLoading");
 			var uid = userService.getUser()._id;
 			taskService.getList({
-				userId: uid,
+				id: uid,
 				pageNo: 1,
 				pageSize: 999999999999999999,
 				startFrom: 0,
 				count: 20,
-				status: 1,
+				status: 3,
 				type: 0 
 			}, function(res) {
-				$rootScope.$broadcast("hideLoading");
-				$scope.visible = "visible";
-				buildTaskList(res.data);
+				if (res.success) {
+					$rootScope.$broadcast("hideLoading");
+					$scope.visible = "visible";
+					buildTaskList(res.data);
+				} else {
+					console.log("get tasklist fail");
+				}
 			}, function(err) {
 				$rootScope.$broadcast("hideLoading");
 				$scope.visible = "visible";
-				console.log(err);
+				console.log("get tasklist error", err);
+			})
+		};
+
+		$scope.acceptTask = function(taskId) {
+			taskService.acceptTask({
+				id: taskId,
+				user: userService.getUser()
+			}, {
+				taskId: taskId
+			}, function(res) {
+				if (res.success) {
+					console.log("accept success");
+				} else {
+					console.log("accept fail");
+				}
+			}, function(err) {
+				console.log("accept error", err);
 			})
 		};
 
