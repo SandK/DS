@@ -58,38 +58,37 @@ module.exports.findTaskByPage = function(req, res) {
 	{
 		userOnly = true;
 	}
-
-	if (!(Util.isValidNumber(req.body.pageNo) && req.body.pageNo > 0
-		&& Util.isValidNumber(req.body.pageSize) && req.body.pageSize > 0
-		&& Util.isValidNumber(req.body.startFrom) && req.body.startFrom >= 0
-		&& Util.isValidNumber(req.body.count) && req.body.count > 0 
-		&& req.body.startFrom + req.body.count < req.body.pageSize
-		&& Util.isValidNumber(req.body.status)
-		&& Util.isValidNumber(req.body.type)
-		))
-	{
-		Logger.error("findTaskByPage|-3|Param is error");
-		return res.send(new Response(false, -3));
-	}
+	// if (!(Util.isValidNumber(req.query.pageNo) && req.query.pageNo > 0
+	// 	&& Util.isValidNumber(req.query.pageSize) && req.query.pageSize > 0
+	// 	&& Util.isValidNumber(req.query.startFrom) && req.query.startFrom >= 0
+	// 	&& Util.isValidNumber(req.query.count) && req.query.count > 0 
+	// 	&& req.query.startFrom + req.query.count < req.query.pageSize
+	// 	&& Util.isValidNumber(req.query.status)
+	// 	&& Util.isValidNumber(req.query.type)
+	// 	))
+	// {
+	// 	Logger.error("findTaskByPage|-3|Param is error");
+	// 	return res.send(new Response(false, -3));
+	// }
 	var _query, _fields;
 	if (!userOnly) {
 		_query = {
-			status: req.body.status
-			, type: req.body.type
+			status: req.query.status
+			, type: req.query.type
 		};
 	} else {
 		_query = {
 			creator: req.params.id
-			,status: req.body.status
-			, type: req.body.type
+			,status: req.query.status
+			, type: req.query.type
 		};
 	}
 
 	// TODO::之后根据前端所需的数据进行一部分筛选
 	_fields = null;
 
-	var startIndex = (req.body.pageNo - 1) * req.body.pageSize + req.body.startFrom;
-	TaskDao.findTaskByPage(_query, _fields, startIndex, req.body.count, function(e, doc) {
+	var startIndex = (req.query.pageNo - 1) * req.query.pageSize + req.query.startFrom;
+	TaskDao.findTaskByPage(_query, _fields, startIndex, req.query.count, function(e, doc) {
 		if (e) {
 			Logger.error("findTaskByPage|-1|%s", e.message);
 			return res.send(new Response(false, -1, e));

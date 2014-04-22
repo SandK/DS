@@ -1,5 +1,5 @@
 define(['modules/ds'], function(ds) {
-	ds.controller('NavController', function ($rootScope, $scope, $http, userService) {
+	ds.controller('NavController', function ($rootScope, $scope, $http, userService, taskService) {
 		$scope.title = "许愿树App";
 		$scope.user = null;
 
@@ -8,6 +8,7 @@ define(['modules/ds'], function(ds) {
 				if (res.success) {
 					$scope.user = res.data.user;
 					userService.setUser($scope.user);
+					$rootScope.$broadcast("loadTaskData");
 				} else {
 					$scope.user = null;
 					console.log("get user error: " + res.msg);

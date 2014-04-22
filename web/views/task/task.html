@@ -2,9 +2,11 @@
   <div>
     <span class="column" ng-repeat="task in tasklist">
       <div class="task-item" ng-repeat="item in task">
-        <h2 ng-bind="item.title"></h2>
-        <p ng-bind="item.tip"></p>
+        <h2 ng-bind="item.taskName"></h2>
+        <p ng-bind="item.description"></p>
         <p ng-bind="item.reward"></p>
+        <p ng-bind="item.contactWay"></p>
+        <p ng-bind="item.createTime"></p>
         <p><a class="btn btn-default" href="#" role="button">领取任务</a></p>
       </div>
     </span>

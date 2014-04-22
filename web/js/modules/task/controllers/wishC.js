@@ -25,20 +25,14 @@ define(['modules/ds'], function(ds) {
 				contactWay: $scope.task.contact,
 				reward: $scope.task.reward
 			}, function(res) {
-				console.log(res);
-				// if (res.success) {
-				// 	$rootScope.$broadcast("getUser", {
-				// 		callback: function() {
-				// 			$("#userSign").modal('hide');
-				// 		}
-				// 	});
-				// } else {
-				// 	console.log("login error: " + res.msg);
-				// }
+				if (res.success) {
+					$("#wishing").modal('hide');	
+				} else {
+					console.log("wish error: " + res.msg);
+				}
 			}, function(err) {
-				console.log(err);
-				// $("#userSign").modal('hide');
-				// console.log("login fail");
+				$("#wishing").modal('hide');
+				console.log("wish fail ", err);
 			});
 	  	}
 
