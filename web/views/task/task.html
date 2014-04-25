@@ -7,9 +7,15 @@
         报酬：<p ng-bind="item.reward"></p>
         联系方式：<p ng-bind="item.contactWay"></p>
         许愿时间：<p ng-bind="item.createTime"></p>
-        <p><a class="btn btn-default" href="#" role="button" ng-click="acceptTask(item._id)">领取任务</a></p>
+        <p  ng-if="status == 1">
+          <a class="btn btn-default" href="#" role="button" ng-click="acceptTask(item._id)">领取任务</a>
+        </p>
+        <p  ng-if="status == 2">
+          <a class="btn btn-default" href="#" role="button" ng-click="taskDone(item._id)">完成任务</a>
+        </p>
+        <p  ng-if="status == 3"></p>
       </div>
     </span>
-    <input type="button" value="加载更多" class="load-button {{visible}}" ng-click="loadData();"></input>
+    <input type="button" value="加载更多" class="load-button {{visible}}" ng-click="addTasks();"></input>
   </div>
 </div>

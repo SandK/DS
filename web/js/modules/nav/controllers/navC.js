@@ -1,4 +1,7 @@
-define(['modules/ds'], function(ds) {
+define([
+	'common/config',
+	'modules/ds'
+], function(config, ds) {
 	ds.controller('NavController', function ($rootScope, $scope, $http, userService, taskService) {
 		$scope.title = "许愿树App";
 		$scope.user = null;
@@ -8,7 +11,7 @@ define(['modules/ds'], function(ds) {
 				if (res.success) {
 					$scope.user = res.data.user;
 					userService.setUser($scope.user);
-					$rootScope.$broadcast("loadTaskData");
+					$rootScope.$broadcast("loadNotAcceptTasks");
 				} else {
 					$scope.user = null;
 					console.log("get user error: " + res.msg);
@@ -21,15 +24,23 @@ define(['modules/ds'], function(ds) {
 			});
 		});
 
+		$scope.showIndex = function() {
+			$rootScope.$broadcast("loadNotAcceptTasks");
+		};
+
 		$scope.showSingDialog = function() {
 			$rootScope.$broadcast("showUserDialog");
-		}
+		};
+
+		$scope.loadAccepTasks = function() {
+			$rootScope.$broadcast("loadAcceptTasks");
+		};	
 
 		$scope.showUpdateUserDialog = function() {
 			$rootScope.$broadcast("showUpdateDialog", {
 				user: $scope.user
 			});
-		}
+		};
 
 		$scope.logout = function() {
 			userService.resource.logout(function(res) {
@@ -41,11 +52,11 @@ define(['modules/ds'], function(ds) {
 			},function() {
 				console.log("logout fail");
 			});
-		}
+		};
 
 		$scope.wishing = function() {
 			$rootScope.$broadcast("showWishDialog");
-		}
+		};
 
 		$rootScope.$broadcast("getServerUser");
 	});
