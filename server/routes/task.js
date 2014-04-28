@@ -193,7 +193,7 @@ module.exports.completeTask = function(req, res) {
 		});
 	};
 
-	Util.ensureAuthenticated(req, res, _acceptTask);
+	Util.ensureAuthenticated(req, res, _completeTask);
 };
 
 // 显示单个任务

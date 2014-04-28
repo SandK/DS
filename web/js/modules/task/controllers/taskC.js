@@ -10,17 +10,14 @@ define([
 	  	});
 
 		$scope.$on("loadNotAcceptTasks", function(e) {
-			reset();
 	  		loadNotAcceptTasks();
 	  	});
 
 		$scope.$on("loadAcceptTasks", function(e) {
-			reset();
 	  		loadAcceptTasks();
 	  	});
 
 	  	$scope.$on("loadDoneTasks", function(e) {
-			reset();
 	  		loadDoneTasks();
 	  	});
 
@@ -43,7 +40,7 @@ define([
 				taskId: taskId
 			}, function(res) {
 				if (res.success) {
-					loadAcceptTasks();
+					loadNotAcceptTasks();
 				} else {
 					console.log("accept fail");
 				}
@@ -53,7 +50,20 @@ define([
 		};
 
 		$scope.taskDone = function(taskId) {
-
+			taskService.taskDone({
+				id: taskId,
+				user: userService.getUser()
+			}, {
+				taskId: taskId
+			}, function(res) {
+				if (res.success) {
+					loadAcceptTasks();
+				} else {
+					console.log("accept fail");
+				}
+			}, function(err) {
+				console.log("accept error", err);
+			});
 		};
 
 		/**
@@ -61,6 +71,7 @@ define([
 	     * @method loadNotAcceptTasks
 	     */
 		var loadNotAcceptTasks = function() {
+			reset();
 			loadData({
 				uid: '',
 				pageNo: 1,
@@ -76,6 +87,7 @@ define([
 	     * @method loadAcceptTasks
 	     */
 		var loadAcceptTasks = function() {
+			reset();
 			loadData({
 				uid: userService.getUser()._id,
 				pageNo: 1,
@@ -91,6 +103,7 @@ define([
 	     * @method loadDoneTasks
 	     */
 		var loadDoneTasks = function() {
+			reset();
 			loadData({
 				uid: userService.getUser()._id,
 				pageNo: 1,

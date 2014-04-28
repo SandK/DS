@@ -16,6 +16,11 @@
 	width: 30%;
 }
 
+.column .item-title {
+	font-size: 20px;
+	font-family: "微软雅黑";
+}
+
 .load-button {
 	margin: 10px;
 	min-height: 1px;
@@ -31,4 +36,8 @@
 	margin-bottom: 10px;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
+}
+
+.accept-btn {
+
 }

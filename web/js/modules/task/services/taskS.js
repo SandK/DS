@@ -11,6 +11,9 @@ define(['modules/ds'], function(ds) {
 			},
 			acceptTask: {
 				method: 'POST'
+			},
+			taskDone: {
+				method: 'PUT'
 			}
 		});
 	});

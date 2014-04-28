@@ -36,6 +36,10 @@ define([
 			$rootScope.$broadcast("loadAcceptTasks");
 		};	
 
+		$scope.loadDoneTasks = function() {
+			$rootScope.$broadcast("loadDoneTasks");
+		};	
+
 		$scope.showUpdateUserDialog = function() {
 			$rootScope.$broadcast("showUpdateDialog", {
 				user: $scope.user
