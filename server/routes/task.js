@@ -90,6 +90,9 @@ module.exports.findTaskByPage = function(req, res) {
 			, type: _type
 		};
 	}
+	if (Util.isValid(req.query.acceptorId)) {
+		_query["acceptor"] = req.query.acceptorId;
+	}
 
 	// TODO::之后根据前端所需的数据进行一部分筛选
 	_fields = null;
@@ -124,6 +127,7 @@ module.exports.acceptTask = function(req, res) {
 		var _conditions = {
 			_id: req.params.taskId
 			, status: 1
+			, creator: {$ne: req.user._id}
 		};
 
 		var _update = {
