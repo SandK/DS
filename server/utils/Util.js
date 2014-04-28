@@ -39,11 +39,11 @@ var Util = function () {
 		// 复制到目标目录
 		fs.rename(tmp_path, target_path, function(err) {
 			if (err) {
-				logger.error("uploadFile rename error: %s|%s|%s", tmp_path, target_path, e.message);
+				logger.error("uploadFile rename error: %s|%s|%s", tmp_path, target_path, err.message);
 				// 复制文件失败要删除临时文件
 				fs.unlink(tmp_path, function(err) {
 					if (err) {
-					logger.error("uploadFile unlink error: %s|%s|%s", tmp_path, target_path, e.message);
+					logger.error("uploadFile unlink error: %s|%s|%s", tmp_path, target_path, err.message);
 						callback(false, err);
 						return ;
 					}
