@@ -74,3 +74,9 @@
     box-shadow: 3px 3px 6px #666;
     width: 100%;
 }
+
+.task-desc {
+	margin-bottom: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}

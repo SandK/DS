@@ -39,10 +39,11 @@ define(['modules/ds'], function(ds) {
 						}
 					});
 				} else {
+					alert("登陆失败");
 					console.log("login error: " + res.msg);
 				}
 			}, function() {
-				$("#userSign").modal('hide');
+				alert("登陆失败");
 				console.log("login fail");
 			});
 		}

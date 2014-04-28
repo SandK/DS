@@ -35,7 +35,7 @@ var Util = function () {
 			return ;
 		}
 		var tmp_path = file.path;
-		var target_path = __dirname + '/../../web/resource/' + file.name;
+		var target_path = __dirname + '/../resource/' + file.name;
 		// 复制到目标目录
 		fs.rename(tmp_path, target_path, function(err) {
 			if (err) {

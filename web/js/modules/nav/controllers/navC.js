@@ -6,12 +6,13 @@ define([
 		$scope.title = "许愿树App";
 		$scope.user = null;
 
+		$rootScope.$broadcast("loadNotAcceptTasks");
+
 		$scope.$on("getServerUser", function(event, data) {
 			userService.resource.getUser(function(res) {
 				if (res.success) {
 					$scope.user = res.data.user;
 					userService.setUser($scope.user);
-					$rootScope.$broadcast("loadNotAcceptTasks");
 				} else {
 					$scope.user = null;
 					console.log("get user error: " + res.msg);

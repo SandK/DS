@@ -1,5 +1,5 @@
 define(['modules/ds'], function(ds) {
-	ds.controller('WishController', function ($scope, $http, taskService, userService) {
+	ds.controller('WishController', function ($rootScope, $scope, $http, taskService, userService) {
 		$scope.templates = [{ 
 			name: 'wish.html',
 			url: 'views/task/wish.html'
@@ -17,6 +17,10 @@ define(['modules/ds'], function(ds) {
 	  	});
 
 	  	$scope.doWish = function() {
+	  		if ($scope.task.title > 6) {
+	  			alert("愿望标题太长了亲");
+	  		}
+
 	  		taskService.wish({
 	  			user: userService.getUser()
 	  		}, {
