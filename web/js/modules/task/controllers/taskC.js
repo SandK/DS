@@ -166,6 +166,10 @@ define([
 				}
 			}
 			if (list) {
+				list.map(function(item) {
+					var date = new Date(item.createTime);
+					item.createTime = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate() + "/" + " " + date.getHours() + ":" + (date.getMinutes() > 9? date.getMinutes() : "0" + date.getMinutes());
+				})
 				for (var i = 0, len = list.length; i < len; i += 3) {
 					list[i]? tempList[0].push(list[i]) : "";
 					list[i + 1]? tempList[1].push(list[i + 1]) : "";

@@ -1,3 +1,8 @@
+.task-name {
+	font-family: "微软雅黑";
+	color: #3399ff;
+}
+
 .task-item {
 	margin: 10px;
 	min-height: 1px;
@@ -6,7 +11,9 @@
 	padding-bottom: 15px;
 	-webkit-box-shadow: 3px 3px 6px #666;  
     -moz-box-shadow: 3px 3px 6px #666;  
-    box-shadow: 3px 3px 6px #666;  
+    box-shadow: 3px 3px 6px #666;
+    position: relative;
+    overflow: hidden;
 }
 
 .column {
@@ -14,11 +21,47 @@
 	vertical-align: top;
 	position: relative;
 	width: 30%;
+	overflow: hidden;
 }
 
-.column .item-title {
+.column .item-content {
 	font-size: 20px;
 	font-family: "微软雅黑";
+	color: #808080;
+	text-indent: 2em;
+	margin: 20px 0;
+}
+
+.column .item-createtime {}
+
+.column .item-contact {
+	font-weight: bold;
+	text-align: right;
+}
+
+.column .item-contact .title {
+	font-size: 20px;
+	font-family: "微软雅黑";
+	color: #4b4b4b;
+}
+
+.column .item-contact .content {
+	font-size: 18px;
+	font-family: "微软雅黑";
+	color: #4b4b4b;
+	text-indent: 2em;
+	margin: 20px 0;
+}
+
+.column .item-reward {
+	font-family: "微软雅黑";
+	color: #4b4b4b;
+}
+
+.column .item-btn {}
+
+.column .item-btn .button {
+	width: 100%;
 }
 
 .load-button {
@@ -30,14 +73,4 @@
     -moz-box-shadow: 3px 3px 6px #666;  
     box-shadow: 3px 3px 6px #666;
     width: 100%;
-}
-
-.task-desc {
-	margin-bottom: 10px;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
-}
-
-.accept-btn {
-
 }

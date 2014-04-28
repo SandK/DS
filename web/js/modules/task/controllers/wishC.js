@@ -26,7 +26,8 @@ define(['modules/ds'], function(ds) {
 				reward: $scope.task.reward
 			}, function(res) {
 				if (res.success) {
-					$("#wishing").modal('hide');	
+					$("#wishing").modal('hide');
+					$rootScope.$broadcast("loadNotAcceptTasks");	
 				} else {
 					console.log("wish error: " + res.msg);
 				}
