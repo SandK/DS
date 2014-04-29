@@ -82,7 +82,8 @@ define([
 				startFrom: 0,
 				count: config.TASK_LIST.COUNT,
 				status: config.TASK_LIST.STATUS.NOT_ACCEPT,
-				type: config.TASK_LIST.TYPE.DEFAULT
+				type: config.TASK_LIST.TYPE.DEFAULT,
+				acceptorId: null
 			});
 		};
 
@@ -93,12 +94,13 @@ define([
 		var loadAcceptTasks = function() {
 			reset();
 			loadData({
-				uid: userService.getUser()._id,
+				uid: '',
 				pageNo: 1,
 				startFrom: 0,
 				count: config.TASK_LIST.COUNT,
 				status: config.TASK_LIST.STATUS.ACCEPT,
-				type: config.TASK_LIST.TYPE.DEFAULT
+				type: config.TASK_LIST.TYPE.DEFAULT,
+				acceptorId: userService.getUser()._id
 			});
 		};
 
@@ -114,7 +116,8 @@ define([
 				startFrom: 0,
 				count: config.TASK_LIST.COUNT,
 				status: config.TASK_LIST.STATUS.DONE,
-				type: config.TASK_LIST.TYPE.DEFAULT
+				type: config.TASK_LIST.TYPE.DEFAULT,
+				acceptorId: null
 			});
 		};
 
@@ -139,7 +142,8 @@ define([
 				startFrom: loadConfig.startFrom,
 				count: loadConfig.count,
 				status: loadConfig.status,
-				type: loadConfig.type 
+				type: loadConfig.type,
+				acceptorId: loadConfig.acceptorId
 			}, function(res) {
 				if (res.success) {
 					$rootScope.$broadcast("hideLoading");
