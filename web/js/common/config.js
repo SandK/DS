@@ -1,7 +1,7 @@
 define([], function (angular) { 
 	var config = {
-		SERVER_URL: "http://localhost:3000/server/",
-		CLIENT_URL: "http://localhost:3000/web/",
+		SERVER_URL: window.location.origin + "/server/",
+		CLIENT_URL: window.location.origin + "/web/",
 
 		TASK_LIST: {
 			PAGE_SIZE: 999999, // 每页大小

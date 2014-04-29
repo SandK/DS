@@ -33,6 +33,10 @@ define([
 		};
 
 		$scope.acceptTask = function(taskId) {
+			if (userService.getUser() == null) {
+				$rootScope.$broadcast("showUserDialog");
+				return ;
+			}
 			taskService.acceptTask({
 				id: taskId,
 				user: userService.getUser()
@@ -169,6 +173,10 @@ define([
 				list.map(function(item) {
 					var date = new Date(item.createTime);
 					item.createTime = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate() + "/" + " " + date.getHours() + ":" + (date.getMinutes() > 9? date.getMinutes() : "0" + date.getMinutes());
+					console.log(userService.getUser()._id, item.creator._id);
+					if (userService.getUser() && item.creator._id == userService.getUser()._id) {
+						item.disabled = "disabled";
+					}
 				})
 				for (var i = 0, len = list.length; i < len; i += 3) {
 					list[i]? tempList[0].push(list[i]) : "";

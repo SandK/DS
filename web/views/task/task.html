@@ -20,7 +20,7 @@
         
         <div class="item-btn">
           <p ng-if="status == 1">
-            <a class="button btn btn-primary" href="#" role="button" ng-click="acceptTask(item._id)">领取任务</a>
+            <a class="button btn btn-primary {{item.disabled}}" href="#" role="button" ng-click="acceptTask(item._id)">领取任务</a>
           </p>
           <p  ng-if="status == 2">
             <a class=" button btn btn-success" href="#" role="button" ng-click="taskDone(item._id)">完成任务</a>

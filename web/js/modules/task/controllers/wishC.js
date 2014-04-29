@@ -17,8 +17,9 @@ define(['modules/ds'], function(ds) {
 	  	});
 
 	  	$scope.doWish = function() {
-	  		if ($scope.task.title > 6) {
+	  		if ($scope.task.title.length > 6) {
 	  			alert("愿望标题太长了亲");
+	  			return ;
 	  		}
 
 	  		taskService.wish({
