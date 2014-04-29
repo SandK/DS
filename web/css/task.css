@@ -1,3 +1,8 @@
+.task-container {
+	width: 1300px;
+	overflow: hidden;
+}
+
 .task-name {
 	font-family: "微软雅黑";
 	color: #3399ff;
@@ -20,7 +25,7 @@
 	display: inline-block;
 	vertical-align: top;
 	position: relative;
-	width: 30%;
+	width: 22%;
 	overflow: hidden;
 }
 

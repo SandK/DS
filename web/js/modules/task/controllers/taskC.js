@@ -159,7 +159,7 @@ define([
 		};
 
 		var buildTaskList = function(list) {
-			var tempList = [$scope.first, $scope.second, $scope.third];
+			var tempList = [$scope.first, $scope.second, $scope.third, $scope.forth];
 			for (var i = 0, len = tempList.length; i < len; ++i) {
 				for (var j = i, len = tempList.length; j < len; ++j) {
 					if (tempList[i].length > tempList[j].length) {
@@ -173,7 +173,6 @@ define([
 				list.map(function(item) {
 					var date = new Date(item.createTime);
 					item.createTime = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate() + "/" + " " + date.getHours() + ":" + (date.getMinutes() > 9? date.getMinutes() : "0" + date.getMinutes());
-					console.log(userService.getUser()._id, item.creator._id);
 					if (userService.getUser() && item.creator._id == userService.getUser()._id) {
 						item.disabled = "disabled";
 					}
@@ -182,12 +181,14 @@ define([
 					list[i]? tempList[0].push(list[i]) : "";
 					list[i + 1]? tempList[1].push(list[i + 1]) : "";
 					list[i + 2]? tempList[2].push(list[i + 2]) : "";
+					list[i + 3]? tempList[3].push(list[i + 3]) : "";
 				}
 			}
 			$scope.tasklist = [];
 			$scope.tasklist.push($scope.first);
 			$scope.tasklist.push($scope.second);
 			$scope.tasklist.push($scope.third);
+			$scope.tasklist.push($scope.forth);
 		}
 
 		var reset = function() {
@@ -195,6 +196,7 @@ define([
 			$scope.first = [];
 			$scope.second = [];
 			$scope.third = [];
+			$scope.forth = [];
 
 			$scope.pageNo = null;
 			$scope.status = null;
