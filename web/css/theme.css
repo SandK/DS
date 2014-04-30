@@ -1,6 +1,8 @@
 body {
   padding-top: 70px;
   padding-bottom: 30px;
+  background-image: -webkit-linear-gradient(270deg, #ffff93, white);
+  min-height: 800px;
 }
 
 .theme-dropdown .dropdown-menu {

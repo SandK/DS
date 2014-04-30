@@ -1,5 +1,4 @@
 .task-container {
-	width: 1300px;
 	overflow: hidden;
 }
 
@@ -25,7 +24,7 @@
 	display: inline-block;
 	vertical-align: top;
 	position: relative;
-	width: 22%;
+	width: 25%;
 	overflow: hidden;
 }
 
