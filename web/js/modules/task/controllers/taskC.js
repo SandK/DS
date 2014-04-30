@@ -3,26 +3,28 @@ define([
 	'modules/ds'
 ], function(config, ds) {
 	ds.controller('TaskController', function ($rootScope, $scope, $http, taskService, userService) {
-		$scope.visible = "dis-visible";
+		$scope.loadingVisible = "dis-visible"; // 任务加载动画 显示/隐藏 属性。
 
-		$scope.$on("loadTaskData", function(e, data) {
-	  		loadData(data);
-	  	});
-
+		// 监听系统事件
 		$scope.$on("loadNotAcceptTasks", function(e) {
-	  		loadNotAcceptTasks();
+	  		_loadNotAcceptTasks();
 	  	});
-
 		$scope.$on("loadAcceptTasks", function(e) {
-	  		loadAcceptTasks();
+	  		_loadAcceptTasks();
 	  	});
-
+	  	$scope.$on("loadDoingTasks", function(e) {
+	  		_loadDoingTasks();
+	  	});
 	  	$scope.$on("loadDoneTasks", function(e) {
-	  		loadDoneTasks();
+	  		_loadDoneTasks();
 	  	});
 
+	  	/**
+	     * 继续加载任务
+	     * @method addTasks
+	     */
 		$scope.addTasks = function() {
-			loadData({
+			_loadData({
 				uid: $scope.uid,
 				pageNo: $scope.pageNo,
 				startFrom: $scope.currentIndex,
@@ -32,19 +34,24 @@ define([
 			});
 		};
 
+		/**
+	     * 领取任务
+	     * @method acceptTask
+	     */
 		$scope.acceptTask = function(taskId) {
+			console.log("!!!!");
 			if (userService.getUser() == null) {
 				$rootScope.$broadcast("showUserDialog");
 				return ;
 			}
-			taskService.acceptTask({
+			taskService.resource.acceptTask({
 				id: taskId,
 				user: userService.getUser()
 			}, {
 				taskId: taskId
 			}, function(res) {
 				if (res.success) {
-					loadNotAcceptTasks();
+					_loadNotAcceptTasks();
 				} else {
 					console.log("accept fail");
 				}
@@ -53,15 +60,19 @@ define([
 			})
 		};
 
+		/**
+	     * 完成任务
+	     * @method taskDone
+	     */
 		$scope.taskDone = function(taskId) {
-			taskService.taskDone({
+			taskService.resource.taskDone({
 				id: taskId,
 				user: userService.getUser()
 			}, {
 				taskId: taskId
 			}, function(res) {
 				if (res.success) {
-					loadAcceptTasks();
+					_loadAcceptTasks();
 				} else {
 					console.log("accept fail");
 				}
@@ -74,9 +85,9 @@ define([
 	     * 加载未领取任务数据
 	     * @method loadNotAcceptTasks
 	     */
-		var loadNotAcceptTasks = function() {
+		var _loadNotAcceptTasks = function() {
 			reset();
-			loadData({
+			_loadData({
 				uid: '',
 				pageNo: 1,
 				startFrom: 0,
@@ -91,9 +102,9 @@ define([
 	     * 加载自己已领取任务数据
 	     * @method loadAcceptTasks
 	     */
-		var loadAcceptTasks = function() {
+		var _loadAcceptTasks = function() {
 			reset();
-			loadData({
+			_loadData({
 				uid: '',
 				pageNo: 1,
 				startFrom: 0,
@@ -105,12 +116,29 @@ define([
 		};
 
 		/**
+	     * 加载正在被实现的任务数据
+	     * @method _loadDoingTasks
+	     */
+		var _loadDoingTasks = function() {
+			reset();
+			_loadData({
+				uid: userService.getUser()._id,
+				pageNo: 1,
+				startFrom: 0,
+				count: config.TASK_LIST.COUNT,
+				status: config.TASK_LIST.STATUS.ACCEPT,
+				type: config.TASK_LIST.TYPE.DEFAULT,
+				acceptorId: null
+			});
+		};
+
+		/**
 	     * 加载自己已完成任务数据
 	     * @method loadDoneTasks
 	     */
-		var loadDoneTasks = function() {
+		var _loadDoneTasks = function() {
 			reset();
-			loadData({
+			_loadData({
 				uid: userService.getUser()._id,
 				pageNo: 1,
 				startFrom: 0,
@@ -121,8 +149,13 @@ define([
 			});
 		};
 
-		var loadData = function(loadConfig) {
-			$scope.visible = "dis-visible";
+		/**
+	     * 加载任务
+	     * @method _loadData
+	     * @private
+	     */
+		var _loadData = function(loadConfig) {
+			$scope.loadingVisible = "dis-visible";
 			$rootScope.$broadcast("showLoading");
 
 			if (loadConfig.pageNo != $scope.pageNo 
@@ -135,7 +168,7 @@ define([
 				$scope.uid = loadConfig.uid;
 			}
 
-			taskService.getList({
+			taskService.resource.getList({
 				id: loadConfig.uid,
 				pageNo: loadConfig.pageNo,
 				pageSize: config.TASK_LIST.PAGE_SIZE,
@@ -149,20 +182,25 @@ define([
 					$rootScope.$broadcast("hideLoading");
 					if (res.data && res.data.length >= loadConfig.count) {
 						$scope.currentIndex += res.data.length;
-						$scope.visible = "visible";
+						$scope.loadingVisible = "visible";
 					}
-					buildTaskList(res.data);
+					_buildTaskList(res.data);
 				} else {
 					console.log("get tasklist fail");
 				}
 			}, function(err) {
 				$rootScope.$broadcast("hideLoading");
-				$scope.visible = "visible";
+				$scope.loadingVisible = "visible";
 				console.log("get tasklist error", err);
 			})
 		};
 
-		var buildTaskList = function(list) {
+		/**
+	     * 构建任务列表
+	     * @method _buildTaskList
+	     * @private
+	     */
+		var _buildTaskList = function(list) {
 			var tempList = [$scope.first, $scope.second, $scope.third, $scope.forth];
 			for (var i = 0, len = tempList.length; i < len; ++i) {
 				for (var j = i, len = tempList.length; j < len; ++j) {
@@ -177,10 +215,25 @@ define([
 				list.map(function(item) {
 					var date = new Date(item.createTime);
 					item.createTime = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate() + "/" + " " + date.getHours() + ":" + (date.getMinutes() > 9? date.getMinutes() : "0" + date.getMinutes());
-					if (userService.getUser() && item.creator._id == userService.getUser()._id) {
-						item.disabled = "disabled";
-					} else {
-						item.disabled = "";
+					if ($scope.status == 1) {
+						item.btnStyle = "btn-primary";
+						item.btnName = "摘取愿望";
+						item.btnType = "accept";
+						if (userService.getUser() && item.creator._id == userService.getUser()._id) {
+							item.disabled = "disabled";
+						} else {
+							item.disabled = "";
+						}
+					} else if ($scope.status == 2) {
+						item.btnStyle = "btn-success";
+						item.btnType = "done";
+						if (item.creator._id == userService.getUser()._id) {
+							item.btnName = "等待实现";
+							item.disabled = "disabled";
+						} else {
+							item.btnName = "实现愿望";
+							item.disabled = "";
+						}
 					}
 				})
 				for (var i = 0, len = list.length; i < len; i += 3) {
@@ -197,6 +250,11 @@ define([
 			$scope.tasklist.push($scope.forth);
 		}
 
+		/**
+	     * 重置信息
+	     * @method reset
+	     * @private
+	     */
 		var reset = function() {
 			$scope.tasklist = [];
 			$scope.first = [];
