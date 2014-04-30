@@ -179,6 +179,8 @@ define([
 					item.createTime = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate() + "/" + " " + date.getHours() + ":" + (date.getMinutes() > 9? date.getMinutes() : "0" + date.getMinutes());
 					if (userService.getUser() && item.creator._id == userService.getUser()._id) {
 						item.disabled = "disabled";
+					} else {
+						item.disabled = "";
 					}
 				})
 				for (var i = 0, len = list.length; i < len; i += 3) {

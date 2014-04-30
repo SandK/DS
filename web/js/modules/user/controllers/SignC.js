@@ -1,5 +1,5 @@
 define(['modules/ds'], function(ds) {
-	ds.controller('SignController', function ($rootScope, $scope, $http, userService) {
+	ds.controller('SignController', function ($rootScope, $scope, $http, userService) {		
 		$scope.templates = [{ 
 			name: 'login.html', 
 			url: 'views/user/login.html'
@@ -18,14 +18,18 @@ define(['modules/ds'], function(ds) {
 				show: true
 			});
 	  	});
+
+	  	$scope.$on("doLogout", function() {
+	  		_doLogout();
+	  	});
+
+	  	$scope.$on("getServerUser", function(event, data) {
+			_getServerUser(event, data);
+		});
 		
 		$scope.showLogin = function() {
 			$scope.template = $scope.templates[0];
-		}
-
-		$scope.showRegiest = function() {
-			$scope.template = $scope.templates[1];
-		}
+		};
 
 		$scope.doLogin = function() {
 			userService.resource.login({}, {
@@ -33,9 +37,10 @@ define(['modules/ds'], function(ds) {
 				password: $scope.login.password,
 			}, function(res) {
 				if (res.success) {
-					$rootScope.$broadcast("getServerUser", {
+					_getServerUser(null, {
 						callback: function() {
 							$("#userSign").modal('hide');
+							$rootScope.$broadcast("loadNotAcceptTasks");
 						}
 					});
 				} else {
@@ -46,7 +51,11 @@ define(['modules/ds'], function(ds) {
 				alert("登陆失败");
 				console.log("login fail");
 			});
-		}
+		};
+
+		$scope.showRegiest = function() {
+			$scope.template = $scope.templates[1];
+		};
 
 		$scope.doRegiest = function() {
 			if ($scope.regiest.passwordAg != $scope.regiest.password) {
@@ -65,7 +74,7 @@ define(['modules/ds'], function(ds) {
 			}, function() {
 				alert("regiest fail");
 			});
-		}
+		};
 
 		var doRegiestSuccess = function(username, password) {
 			userService.resource.login({}, {
@@ -73,7 +82,7 @@ define(['modules/ds'], function(ds) {
 				password: password,
 			}, function(res) {
 				if (res.success) {
-					$rootScope.$broadcast("getServerUser", {
+					_getServerUser(null, {
 						callback: function() {
 							$("#userSign").modal('hide');
 						}
@@ -85,6 +94,42 @@ define(['modules/ds'], function(ds) {
 				alert("login fail");
 			});
 		}
+
+		var _getServerUser = function(event, data) {
+			userService.resource.getUser(function(res) {
+				if (res.success) {
+					$scope.user = res.data.user;
+				} else {
+					$scope.user = null;
+					console.log("get user error: " + res.msg);
+				}
+				userService.setUser($scope.user);
+				$rootScope.$broadcast("setUser", {
+					user: $scope.user
+				});
+				data && data.callback && data.callback();
+			}, function() {
+				$scope.user = null;
+				console.log("get user fail");
+				data && data.callback && data.callback();
+			});
+		}
+
+		var _doLogout = function() {
+			userService.resource.logout(function(res) {
+				if (res.success) {
+					_getServerUser(null, {
+						callback: function() {
+							$rootScope.$broadcast("loadNotAcceptTasks");
+						}
+					});
+				} else {
+					console.log("logout error: " + res.msg);
+				}
+			},function() {
+				console.log("logout fail");
+			});
+		};
 
 		var reset = function() {
 			$scope.login = {

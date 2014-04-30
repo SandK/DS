@@ -6,23 +6,8 @@ define([
 		$scope.title = "许愿树App";
 		$scope.user = null;
 
-		$rootScope.$broadcast("loadNotAcceptTasks");
-
-		$scope.$on("getServerUser", function(event, data) {
-			userService.resource.getUser(function(res) {
-				if (res.success) {
-					$scope.user = res.data.user;
-					userService.setUser($scope.user);
-				} else {
-					$scope.user = null;
-					console.log("get user error: " + res.msg);
-				}
-				data && data.callback && data.callback();
-			}, function() {
-				$scope.user = null;
-				console.log("get user fail");
-				data && data.callback && data.callback();
-			});
+		$scope.$on("setUser", function(event, data) {
+			$scope.user = data.user;
 		});
 
 		$scope.showIndex = function() {
@@ -48,15 +33,7 @@ define([
 		};
 
 		$scope.logout = function() {
-			userService.resource.logout(function(res) {
-				if (res.success) {
-					$rootScope.$broadcast("getServerUser");
-				} else {
-					console.log("logout error: " + res.msg);
-				}
-			},function() {
-				console.log("logout fail");
-			});
+			$rootScope.$broadcast("doLogout");
 		};
 
 		$scope.wishing = function() {
@@ -64,5 +41,6 @@ define([
 		};
 
 		$rootScope.$broadcast("getServerUser");
+		$rootScope.$broadcast("loadNotAcceptTasks");
 	});
 });
