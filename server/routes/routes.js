@@ -11,7 +11,13 @@ module.exports = function(app) {
 	app.delete('/user', user.logout);
 	app.get('/user', user.getUserInfo);
 	app.post('/user/:id', user.updateUserInfo);
-
+	app.get('/auth/qq', passport.authenticate('qq'), function(req, res){});
+	app.get('/auth/qq/callback', 
+		passport.authenticate('qq', { failureRedirect: '/web' }),
+		function(req, res) {
+			res.redirect('/web');
+		}
+	);
 	// 任务模块
 	app.post('/task', task.createTask);
 	app.get('/task', task.findTaskByPage);

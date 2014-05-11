@@ -9,7 +9,7 @@ module.exports.createTask = function(req, res) {
 
 	var _createTask = function(req, res)
 	{	
-
+		Logger.info("createTask provider:%s", req.user.provider);
 		if (!(Util.isValid(req.user) && Util.isValid(req.user._id)) )
 		{
 			Logger.error("createTask|-2|req.user is null");

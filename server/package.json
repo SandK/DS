@@ -12,6 +12,7 @@
     "passport" : "*",
     "passport-local" : "*",
     "passport-local-mongoose" : "*",
+    "passport-qq" : "*",
     "bower": "~1.2.7",
     "log4js": "*",
     "should": "*",

@@ -39,7 +39,6 @@ define([
 	     * @method acceptTask
 	     */
 		$scope.acceptTask = function(taskId) {
-			console.log("!!!!");
 			if (userService.getUser() == null) {
 				$rootScope.$broadcast("showUserDialog");
 				return ;
