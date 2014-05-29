@@ -5,8 +5,8 @@ var Util = require('../utils/Util');
 module.exports.checkSignature = function(req, res) {
 	Logger.info("================ Get|");
 	Logger.info(req.query);
-	if (Util.isValid(req.query.signature)) {
-		res.send(req.query.signature);
+	if (Util.isValid(req.query.echostr)) {
+		res.send(req.query.echostr);
 		return ;
 	}
 	res.send("null");
