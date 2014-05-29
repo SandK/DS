@@ -1,6 +1,7 @@
 var passport = require('passport');
 var user = require('./user');
 var task = require('./task');
+var wx = require('./wx');
 
 module.exports = function(app) {
 	// TODO::都要加上passport.authenticate?
@@ -25,4 +26,7 @@ module.exports = function(app) {
 	app.post('/task/:taskId', task.acceptTask);
 	app.put('/task/:taskId', task.completeTask);
 	app.get('/task/detail/:taskId', task.showOneTaskDetail);
+
+	// 微信公众帐号相关
+	app.get('/', wx.checkSignature);
 };

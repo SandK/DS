@@ -17,6 +17,7 @@
     "log4js": "*",
     "should": "*",
     "heapdump": "*",
-    "connect-multiparty": "*"
+    "connect-multiparty": "*",
+    "wechat": "*"
   }
 }
