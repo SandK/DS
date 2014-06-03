@@ -29,4 +29,5 @@ module.exports = function(app) {
 
 	// 微信公众帐号相关
 	app.get('/', wx.checkSignature);
+	app.use('/wechat', wx.handleMsg);
 };
