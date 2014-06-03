@@ -28,6 +28,6 @@ module.exports = function(app) {
 	app.get('/task/detail/:taskId', task.showOneTaskDetail);
 
 	// 微信公众帐号相关
-	app.get('/', wx.checkSignature);
-	app.use('/wechat', wx.handleMsg);
+	//app.get('/', wx.checkSignature);
+	app.use('/', wx.handleMsg);
 };
