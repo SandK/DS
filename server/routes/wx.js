@@ -68,8 +68,7 @@ wechat.text(function(message, req, res, next) {
 })
 .location(function (message, req, res, next) {
 	console.log(message);
-	res.reply("我收到了位置|" + message.Location_X + "|" + message.Location_Y 
-		 "|" + message.Scale);
+	res.reply("我收到了位置|" + message.Location_X + "|" + message.Location_Y + "|" + message.Scale);
 })
 .link(function (message, req, res, next) {
 	console.log(message);
