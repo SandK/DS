@@ -30,4 +30,5 @@ module.exports = function(app) {
 	// 微信公众帐号相关
 	//app.get('/', wx.checkSignature);
 	app.use('/', wx.handleMsg);
+	app.get('/wx/token', wx.getToken);
 };

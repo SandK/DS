@@ -104,3 +104,20 @@ wechat.text(function(message, req, res, next) {
 })
 
 );
+
+// 根据code获取Token
+module.exports.getToken = function(req, res) {
+	console.log("getToken|" + req.query.code);
+	if (!Util.isValid(req.query.code)) {
+		res.send("Code is null");
+		return ;
+	}
+	OAuthApi.getAccessToken(req.query.code, function(err, result) {
+		if (err) {
+			res.send("Data error");
+			return ;
+		}
+		console.log(result);
+		res.send("Success");
+	});
+};
