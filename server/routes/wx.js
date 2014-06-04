@@ -42,8 +42,8 @@ wechat.text(function(message, req, res, next) {
 	}
 	else if (input == 'a')
 	{
-		var authUrl = OAuthApi.getAuthorizeURL(config.redirectUrl, 'snsapi_userinfo', 'STATE');
-		console.log("TestAuth2|" + OAuthApi.appid + "|" + OAuthApi.appsecret + "|" + config.authUrl);
+		var authUrl = OAuthApi.getAuthorizeURL(config.redirectUrl, 'STATE', 'snsapi_userinfo');
+		console.log("TestAuth2|" + OAuthApi.appid + "|" + OAuthApi.appsecret + "|" + authUrl);
 
 		res.reply([
 			{
