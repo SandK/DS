@@ -7,5 +7,6 @@ module.exports =
     token: 'gmartds',
     wxAppId: 'wx88af149b10434875',
     wxAppSecret: 'a965cad86c24a7ddf99522ecddb43592',
-    redirectUrl: 'http://nba.bluewebgame.com/oauth_response.php'
+    //redirectUrl: 'http://nba.bluewebgame.com/oauth_response.php'
+    redirectUrl: 'http://www.gmartds.tk/web/index.html'
 };
