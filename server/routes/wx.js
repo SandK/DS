@@ -37,10 +37,12 @@ wechat.text(function(message, req, res, next) {
 	}
 	else if (input == '啊')
 	{
+		console.log("TestAuth1|" + OAuthApi.appid + "|" + OAuthApi.appsecret);
 		res.reply("验证|" + OAuthApi.isAccessTokenValid());
 	}
 	else if (input == 'a')
 	{
+		console.log("TestAuth1|" + OAuthApi.appid + "|" + OAuthApi.appsecret + "|" + config.redirectUrl);
 		OAuthApi.getAuthorizeURL(config.redirectUrl, 'snsapi_userinfo', 'STATE');
 	}
 	else
