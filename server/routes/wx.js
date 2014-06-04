@@ -2,6 +2,8 @@ var Logger = require('../utils/log').logger;
 var Util = require('../utils/Util');
 var config = require('../config');
 var wechat = require('wechat');
+var OAuth = require('wechat').OAuth;
+var OAuthApi = new OAuth(config.wxAppId, config.wxAppSecret);
 
 // 微信加密签名验证
 module.exports.checkSignature = function(req, res) {
@@ -32,6 +34,14 @@ wechat.text(function(message, req, res, next) {
 				url: 'http://www.baidu.com/'
 			}
 		]);
+	}
+	else if (input == '啊')
+	{
+		res.reply("验证|" + OAuthApi.isAccessTokenValid());
+	}
+	else if (input == 'a')
+	{
+		OAuthApi.getAuthorizeURL(config.redirectUrl, 'snsapi_userinfo', 'STATE');
 	}
 	else
 	{
