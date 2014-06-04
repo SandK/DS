@@ -5,7 +5,7 @@ module.exports =
     appKey: '101081381',
     appSecret: '4ede0d58af1534bcda894dddc4abad00',
     token: 'gmartds',
-    wxAppId: 'wxfbd1b8e7a056f701',
-    wxAppSecret: 'c701422a34e5cc2a94f7416524cea44d',
+    wxAppId: 'wx88af149b10434875',
+    wxAppSecret: 'a965cad86c24a7ddf99522ecddb43592',
     redirectUrl: 'http://nba.bluewebgame.com/oauth_response.php'
 };
