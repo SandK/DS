@@ -23,6 +23,18 @@ wechat.text(function(message, req, res, next) {
 	console.log(message);
 	var input = (message.Content || '').trim();
 	var content = '';
+	var openId = message.FromUserName;
+	var userInfo;
+	OAuthApi.getUser(openId, function(err, result) {
+		if (err) {
+			userInfo = null;
+		}
+		userInfo = result;
+	});
+	console.log('===========================');
+	console.log(userInfo);
+	console.log('===========================');
+
 	// Logic Handle
 	if (input == '图文')
 	{
@@ -44,12 +56,26 @@ wechat.text(function(message, req, res, next) {
 	{
 		var authUrl = OAuthApi.getAuthorizeURL(config.redirectUrl, 'STATE', 'snsapi_userinfo');
 		console.log("TestAuth2|" + OAuthApi.appid + "|" + OAuthApi.appsecret + "|" + authUrl);
-		var text = '<a href=' + authUrl + '>点击这里绑定</a>';
-		res.reply(text);
+
+		res.reply([
+			{
+				title: '测试授权',
+				description: '授权',
+				picurl: 'http://su.bdimg.com/static/superplus/img/logo_white_2a2fcb5a.png',
+				url: authUrl
+			}
+		]);
 	}
 	else
 	{
-		res.reply("我收到了|" + input);
+		if (userInfo == null)
+		{
+			res.reply("游客,你好|我收到了|" + input);
+		}
+		else
+		{
+			res.reply(userInfo.nickname + ",你好|我收到了|" + input);
+		}
 	}
 })
 .image(function (message, req, res, next) {
