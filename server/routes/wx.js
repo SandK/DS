@@ -24,16 +24,6 @@ wechat.text(function(message, req, res, next) {
 	var input = (message.Content || '').trim();
 	var content = '';
 	var openId = message.FromUserName;
-	var userInfo;
-	OAuthApi.getUser(openId, function(err, result) {
-		if (err) {
-			userInfo = null;
-		}
-		userInfo = result;
-	});
-	console.log('===========================');
-	console.log(userInfo);
-	console.log('===========================');
 
 	// Logic Handle
 	if (input == '图文')
@@ -68,14 +58,25 @@ wechat.text(function(message, req, res, next) {
 	}
 	else
 	{
-		if (userInfo == null)
-		{
-			res.reply("游客,你好|我收到了|" + input);
-		}
-		else
-		{
-			res.reply(userInfo.nickname + ",你好|我收到了|" + input);
-		}
+		var userInfo;
+		OAuthApi.getUser(openId, function(err, result) {
+			if (err) {
+				userInfo = null;
+			}
+			userInfo = result;
+			console.log('===========================');
+			console.log(userInfo);
+			console.log('===========================');
+
+			if (userInfo == null)
+			{
+				res.reply("游客,你好|我收到了|" + input);
+			}
+			else
+			{
+				res.reply(userInfo.nickname + ",你好|我收到了|" + input);
+			}
+		});
 	}
 })
 .image(function (message, req, res, next) {
@@ -144,6 +145,6 @@ module.exports.getToken = function(req, res) {
 			return ;
 		}
 		console.log(result);
-		res.send("Success");
+		res.send("授权成功.请返回到之前的页面");
 	});
 };
