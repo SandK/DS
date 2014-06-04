@@ -42,8 +42,17 @@ wechat.text(function(message, req, res, next) {
 	}
 	else if (input == 'a')
 	{
-		console.log("TestAuth1|" + OAuthApi.appid + "|" + OAuthApi.appsecret + "|" + config.redirectUrl);
-		OAuthApi.getAuthorizeURL(config.redirectUrl, 'snsapi_userinfo', 'STATE');
+		var authUrl = OAuthApi.getAuthorizeURL(config.redirectUrl, 'snsapi_userinfo', 'STATE');
+		console.log("TestAuth2|" + OAuthApi.appid + "|" + OAuthApi.appsecret + "|" + config.authUrl);
+
+		res.reply([
+			{
+				title: '测试授权验证',
+				description: '授权',
+				picurl: 'http://su.bdimg.com/static/superplus/img/logo_white_2a2fcb5a.png',
+				url: authUrl
+			}
+		]);
 	}
 	else
 	{
