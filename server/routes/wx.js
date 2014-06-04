@@ -44,15 +44,8 @@ wechat.text(function(message, req, res, next) {
 	{
 		var authUrl = OAuthApi.getAuthorizeURL(config.redirectUrl, 'STATE', 'snsapi_userinfo');
 		console.log("TestAuth2|" + OAuthApi.appid + "|" + OAuthApi.appsecret + "|" + authUrl);
-
-		res.reply([
-			{
-				title: '测试授权验证',
-				description: '授权',
-				picurl: 'http://su.bdimg.com/static/superplus/img/logo_white_2a2fcb5a.png',
-				url: authUrl
-			}
-		]);
+		var text = '<a href=' + authUrl + '>点击这里绑定</a>';
+		res.reply(text);
 	}
 	else
 	{
